@@ -10,8 +10,8 @@
     width:30%;
 }
 
-#underHeader{
-  margin-left: 43%;
+.underHeader{
+  margin-left: 41%;
 }
 
 body{
@@ -21,10 +21,10 @@ body{
 #border1{
     position:absolute;
     top:220px;
-    left:250px;
+    left:400px;
     margin:auto;
     background-color:#f5c77e;
-    width:60%;
+    width:45%;
     border-style:solid;
     clear:left;
 }
@@ -32,6 +32,7 @@ body{
 .Title1{
     color:saddlebrown;
     position: relative;
+    left:20px;
 }
 
 .row:after{
@@ -42,6 +43,7 @@ body{
 .column{
     float: left;
     width:50%;
+    
 }
 
 #column2{
@@ -52,13 +54,22 @@ body{
   margin-left:33%;
 }
 
-.footer1{
-    margin:auto;
-    width:30%;
-}
 
+
+#footer2{
+  position: absolute;
+  left: 240px;
+  top: 600px;
+}
+#footer3{
+  position: absolute;
+  left: 240px;
+  top: 620px;
+}
 table{
     border-style:solid;
+    position:absolute;
+    top:550px;
 }
 
 tr{
@@ -78,14 +89,66 @@ a:hover{
 
 
 #image{
- float:left;
- 
- 
+ position:absolute;
+ left:-40px;
+ top:-30px;
 }
 
+#image2{
+  position:absolute;
+  left:1222px;
+  top:-30px;
+}
 
 
 *{
   font-family:'Trebuchet MS';
 }
 
+#Title2{
+  position:absolute;
+  top:300px;
+  left: 20px;
+  color: saddlebrown;
+}
+
+#li1{
+  position: absolute;
+  top: 350px;
+}
+
+#li2{
+  position: absolute;
+  top: 370px;
+}
+
+
+#li3{
+  position: absolute;
+  top: 390px;
+}
+
+
+#li4{
+  position: absolute;
+  top: 410px;
+}
+
+#li5{
+  position: absolute;
+  top: 430px;
+}
+
+#li6{
+  position: absolute;
+  top: 450px;
+}
+
+
+#Desc{
+  color: brown;
+  position:absolute;
+  top: 475px;
+  left: 20px;
+  max-width: 390px;
+}
