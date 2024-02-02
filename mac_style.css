@@ -58,18 +58,18 @@ body{
 
 #footer2{
   position: absolute;
-  left: 240px;
-  top: 600px;
+  left: 50px;
+  top: 700px;
 }
 #footer3{
   position: absolute;
-  left: 240px;
-  top: 620px;
+  left: 30px;
+  top: 710px;
 }
 table{
     border-style:solid;
     position:absolute;
-    top:550px;
+    top:590px;
 }
 
 tr{
@@ -91,12 +91,12 @@ a:hover{
 #image{
  position:absolute;
  left:-40px;
- top:-30px;
+ top:-100px;
 }
 
 #image2{
   position:absolute;
-  left:1222px;
+  left:932px;
   top:-30px;
 }
 
@@ -150,5 +150,5 @@ a:hover{
   position:absolute;
   top: 475px;
   left: 20px;
-  max-width: 390px;
+  max-width: 270px;
 }
