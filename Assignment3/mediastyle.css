@@ -612,14 +612,14 @@
     text-align: center;
   }
   #overP1{
-    background-color:lavender;
+    background-color:#45A29E;
     grid-column: 4/9;
     grid-row: 4;
     height:75%;
     margin-top: 10%;
   }
   #overP2{
-    background-color: violet;
+    background-color: #66FCF1;
     grid-column: 4/13;
     grid-row: 5;
     height: 50%;
@@ -631,19 +631,19 @@
 
 
   #underP1{
-    background-color: yellowgreen;
+    background-color: #45A29E;
     grid-column: 4/9;
   }
   #underP2{
-    background-color: violet;
+    background-color: #66FCF1;
     grid-column: 9/14;
   }
   #underP3{
-    background-color: tomato;
+    background-color: #45A29E;
     grid-column: 14/19;
   }
   #underP4{
-    background-color: teal;
+    background-color: #66FCF1;
     grid-column: 19/24;
   }
   .underP{
@@ -694,13 +694,13 @@
     margin-bottom: 65px;
   }
   #col1H{
-    background-color: slateblue;
+    background-color: black;
     grid-column: 4/8;
     grid-row: 8/9;
     margin-top: 20px;
   }
   #col1B{
-    background-color: peru;
+    background-color: #1F2833;
     grid-column: 4/8;
   }
 
@@ -716,14 +716,14 @@
     margin-bottom: 65px;
   }
   #col2H{
-    background-color: springgreen;
+    background-color: black;
     grid-column: 9/14;
     grid-row: 8/9;
     margin-right: 25px;
     margin-top: 20px;
   }
   #col2B{
-    background-color:orchid;
+    background-color:#1F2833;
     grid-column: 9/14; 
     margin-right: 25px;
   }
@@ -740,14 +740,14 @@
     margin-bottom: 65px;
   }
   #col3H{
-    background-color: rosybrown;
+    background-color: black;
     grid-column: 14/19;
     grid-row: 8/9;
     margin-left: 25px;
     margin-top: 20px;
   }
   #col3B{
-    background-color:midnightblue;
+    background-color:#1F2833;
     grid-column: 14/19;
     margin-left: 25px;
   }
@@ -763,13 +763,13 @@
     margin-bottom: 65px;
   }
   #col4H{
-    background-color: palevioletred;
+    background-color: black;
     grid-column: 20/24;
     grid-row: 8/9;
     margin-top: 20px;
   }
   #col4B{
-    background-color: peru;
+    background-color: #1F2833;
     grid-column: 20/24;
   }
 
@@ -804,7 +804,7 @@
 
   .navb{
     display:grid;
-    background-color: aqua;
+    background-color: #1F2833;
     grid-column: 1/4;
     grid-row: 2/6;
     margin-top: 40px;
@@ -812,7 +812,7 @@
     padding-left: 35%;
   }
   #asidebar{
-    background-color: indigo;
+    background-color: black;
     grid-column: 1/4;
     grid-row: 6/10;
     text-align: center;
@@ -821,11 +821,11 @@
   }
   .newslink{
     border-style: solid;
-    border-color: white;
+    border-color: black;
     border-radius: 100px;
   }
   .newslink:hover{
-    border-color: black;
+    border-color: white;
   }
 
   #break{
@@ -908,7 +908,7 @@
     border-radius:50%;
   }
   #cirImg{
-    background-color: white;
+    
     clip-path:circle(40%);
   }
 
