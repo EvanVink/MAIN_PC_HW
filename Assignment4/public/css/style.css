@@ -289,7 +289,7 @@
   .photo{
     grid-row:6/15;
     grid-column:1/6;
-    background: url('/photos/s15silvia.jpg') center center;
+    background: url('/public/img/s15silvia.jpg') center center;
     background-size: cover;
   
     background-color: blue;
@@ -369,7 +369,7 @@
   .photo{
     grid-row:6/26;
     grid-column:2/25;
-    background: url('/photos/s15silvia.jpg') center center;
+    background: url('/public/img/s15silvia.jpg') center center;
     background-size: cover;
     background-color: blue;
   }
@@ -932,60 +932,60 @@
 
 
 #toyotalogo{
-  background: url('/photos/kisspng-toyota-86-car-logo-general-motors--5b7b8e3e0831e0.5485634815348239980336.png') center center;
+  background: url('/img/kisspng-toyota-86-car-logo-general-motors--5b7b8e3e0831e0.5485634815348239980336.png') center center;
   background-size: cover;
 }
 #nissanlogo{
-  background: url('/photos/Nissan-logo-icon-on-transparent-background-PNG.png') center center;
+  background: url('/img/Nissan-logo-icon-on-transparent-background-PNG.png') center center;
   background-size: cover;
 }
 #subarulogo{
-  background: url('/photos/download.png') center center;
+  background: url('/img/download.png') center center;
   background-size: cover;
 }
 #mitsubishilogo{
-  background: url('/photos/Mitsubishi-logo.png') center center;
+  background: url('/img/Mitsubishi-logo.png') center center;
   background-size: cover;
 }
 #mazdalogo{
-  background: url('/photos/Mazda-Logo-Transparent-Background.png') center center;
+  background: url('/img/Mazda-Logo-Transparent-Background.png') center center;
   background-size: cover;
 }
 
 
 .photo{
-  background: url('/photos/s15silvia.jpg') center center;
+  background: url('/img/s15silvia.jpg') center center;
   background-size: cover;
 }
 
 
 #imgcol4{
-  background: url('/photos/c6-corvette-driving.jpg') center center;
+  background: url('/img/c6-corvette-driving.jpg') center center;
   background-size: cover;
 }
 
 #imgcol3{
-  background: url('/photos/yellow_s15_aero_work_kiwami-nissan-silvia-s15.jpg') center center;
+  background: url('/img/yellow_s15_aero_work_kiwami-nissan-silvia-s15.jpg') center center;
   background-size: cover;
 }
 
 #imgcol2{
-  background: url('/photos/1990-Nissan-Skyline-GT-R-Driver-Motorsport-Front-Grill.avif') center center;
+  background: url('/img/1990-Nissan-Skyline-GT-R-Driver-Motorsport-Front-Grill.avif') center center;
   background-size: cover;
 }
 
 #imgcol1{
-  background: url('/photos/cqur3nrg_car_625x300_11_January_22.webp') center center;
+  background: url('/img/cqur3nrg_car_625x300_11_January_22.webp') center center;
   background-size: cover;
 }
 
 #emailicon{
-  background: url('/photos/icones-de-messagerie-blueue.png') center center;
+  background: url('/img/icones-de-messagerie-blueue.png') center center;
   background-size: cover;
 }
 
 #insta{
-  background: url('/photos/new-instagram-logo-png-transparent.png') center center;
+  background: url('/img/new-instagram-logo-png-transparent.png') center center;
   background-size: cover;
 }
 

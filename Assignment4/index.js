@@ -6,6 +6,7 @@ const fs = require("fs");
 
 app.use("/js", express.static("./public/js"));
 app.use("/css", express.static("./public/css"));
+app.use("/img", express.static("./public/img"));
 
 
 app.get("/", (req, res) => {
@@ -13,7 +14,7 @@ app.get("/", (req, res) => {
     res.send(doc);
 })
 
-app.get("/hello", function (req, res){
+app.get("/table", function (req, res){
     res.send("<html><body>hello world!</body></html>");
 })
 
