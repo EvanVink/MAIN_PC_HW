@@ -9,24 +9,35 @@ app.use("/css", express.static("./public/css"));
 app.use("/img", express.static("./public/img"));
 
 
-app.get("/", (req, res) => {
+
+
+app.get("/", function (req, res) {
     let doc = fs.readFileSync("./page/index.html", "utf8");
     res.send(doc);
+    
 })
 
-app.get("/table", function (req, res){
-    res.send("<html><body>hello world!</body></html>");
-})
+app.get("/races2021", function (req, res) {
+
+    let doc = fs.readFileSync("./page/races2021.js", "utf8");
+    res.setHeader("Content-Type", "application/json");
+    res.send(doc);
+});
 
 
 
+app.get("/races2022", function (req, res) {
 
-
+    let doc = fs.readFileSync("./page/races2022.html", "utf8");
+    res.setHeader("Content-Type", "text/html");
+    res.send(doc);
+});
 
 
 
 
 let port = 8000;
-app.listen(port, function() {
-    console.log("This Page is Listening on port " + port + "!")
+app.listen(port, function () {
+    console.log("Example app listening on port " + port + "!");
 });
+
