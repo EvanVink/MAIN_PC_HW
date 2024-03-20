@@ -452,11 +452,11 @@
 
   #imgcol1{
     grid-column: 2/7;
-    grid-row: 32/38;
+    grid-row: 38/44;
   }
   #col1H{
     grid-column: 2/7;
-    grid-row: 38/49;
+    grid-row: 44/53;
   }
   #col1B{
     background-color: #1F2833;
@@ -471,11 +471,11 @@
   
   #imgcol2{
     grid-column: 8/13;
-    grid-row: 32/38;
+    grid-row: 38/44;
   }
   #col2H{
     grid-column: 8/13;
-    grid-row: 38/49;
+    grid-row: 44/53;
   }
   #col2B{
     background-color: #1F2833;
@@ -488,11 +488,11 @@
 
   #imgcol3{
     grid-column: 14/19;
-    grid-row: 32/38;
+    grid-row: 38/44;
   }
   #col3H{
     grid-column: 14/19;
-    grid-row: 38/49;
+    grid-row: 44/53;
   }
   #col3B{
     background-color: #1F2833;
@@ -505,11 +505,11 @@
 
   #imgcol4{
     grid-column: 20/25;
-    grid-row: 32/38;
+    grid-row: 38/44;
   }
   #col4H{
     grid-column: 20/25;
-    grid-row: 38/49;
+    grid-row: 44/53;
   }
   #col4B{
     background-color: #1F2833;
@@ -518,12 +518,12 @@
 
   .colB{
     overflow-y: scroll;
-    grid-row: 41/49;
+    grid-row: 47/55;
   }
 
 
   .undercol{
-    grid-row: 49/50;
+    grid-row: 56;
   }
   #undercol1{
     grid-column: 2/7;
@@ -546,7 +546,7 @@
 
   #asidebar{
     grid-column: 2/24;
-    grid-row: 52/60;
+    grid-row: 59/67;
     text-align: center;
   }
   .newslink{
@@ -559,21 +559,21 @@
   }
 
   #break{
-    grid-row: 63;
+    grid-row: 70;
     grid-column: 1/27;
 
   }
 
 
   #footer{
-    grid-row: 64;
+    grid-row: 71;
     grid-column: 1/3;
   }
   #insta{
     width: 50px;
     height: 50px;
     grid-column: 24/25;
-    grid-row: 64/66;
+    grid-row: 72/74;
   }
 
   #toyotalogo{
@@ -598,9 +598,75 @@
     height:35px;
   }
 
+  #f1photo{
+    grid-column: 2/25;
+    grid-row: 27/33;
+    margin-top: 5px;
+  }
+
+  #races2021{
+    grid-column: 2/25;
+    grid-row: 33/35;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid black;
+  }
+
+  #races2022{
+    grid-column: 2/25;
+    grid-row: 35/37;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid black;
+  }
+
+  #races1{
+    grid-column: 5/23;
+    grid-row: 35/70;
+    color: #66FCF1;
+  }
 
 
+  #races2{
+    grid-column: 2/25;
+    grid-row: 37/100;
+    color: #66FCF1;
+  }
 
+
+  .collapsible1 {
+    background-color: #777;
+    color: gray;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+  }
+  .collapsible2 {
+    background-color: #777;
+    color: gray;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+  }
+  
+  .active, .collapsible:hover {
+    background-color: #555;
+  }
+  
+  .content1 {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: black;
+  }
 
 
 
@@ -884,14 +950,14 @@
   #races1{
     grid-column: 4/14;
     grid-row: 9/20;
-    color: aliceblue;
+    color:#66FCF1;
     margin-top: 5%;
 
   }
   #races2{
     grid-column: 14/24;
     grid-row: 9/20;
-    color: white;
+    color:#66FCF1;
     margin-top: 5%;
     margin-bottom: 10px;
   }
@@ -1012,7 +1078,7 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-    background-color: gray;
+    background-color: black;
   }
 
 
