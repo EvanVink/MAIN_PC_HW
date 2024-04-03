@@ -20,6 +20,29 @@
     grid-template-columns: repeat(5, 20%);
     background-color: black;
   }
+
+  #races2022{
+    display: none;
+  }
+  #races2021{
+    display: none;
+  }
+
+  #f1photo{
+    display: none;
+  }
+
+  #races1{
+    display: none;
+  }
+
+  #races2{
+    display: none;
+  }
+
+
+
+
   #underP1{
     visibility: hidden;
   }

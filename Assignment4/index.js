@@ -38,6 +38,6 @@ app.get("/races2022", function (req, res) {
 
 let port = 8000;
 app.listen(port, function () {
-    console.log("Example app listening on port " + port + "!");
+    
 });
 
