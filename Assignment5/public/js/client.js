@@ -20,7 +20,29 @@ function loadRaces(file, callback) {
 
 
 
+document.getElementById('posts').addEventListener('click', function(e) {
 
+
+  loadRaces('/timeline', function(data) {
+    console.log(data);
+    let parsedData = JSON.parse(data);
+
+
+    let cont = "<table><tr><td>ID</td><td>Date</td><td>Text</td><td>Time</td><td>Views</td></tr>";
+    for(let i = 0; i < parsedData.length; i++) {
+        let item = parsedData[i];
+        cont += "<tr><td>" + item["ID"] + "</td><td>" + item["date"]
+            + "</td><td>" + item["text"]
+            + "</td><td>" + item["time"] + "</td><td>" + item["views"] + "</td></tr>";
+    }
+    cont += "</table>";
+
+
+
+    document.getElementById("xam").innerHTML = cont;
+    document.getElementById("xam").style.display = "block";
+  });
+});
 
 
 document.querySelector("#races2021").addEventListener("click", function (e) {

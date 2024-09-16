@@ -337,6 +337,10 @@
     padding:0;
     background-color: black;
   }
+
+
+
+
   #break{
     overflow: hidden;
     color: white;
@@ -627,6 +631,19 @@
     margin-top: 5px;
   }
 
+
+  #posts{
+    color: #1F2833;
+    grid-column: 5/10;
+    grid-row: 67/68;
+  }
+
+
+  #xam{
+    color: white;
+    grid-column: 5/35;
+    grid-row: 68/80;
+  }
   #races2021{
     grid-column: 2/25;
     grid-row: 33/35;

@@ -2,7 +2,14 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 const fs = require("fs");
-
+const mysql = require("mysql2");
+    
+const connection = mysql.createConnection({
+host: "localhost",
+user: "root",
+password: "",
+database: "assignment5"
+});
 
 
 app.use("/js", express.static("./public/js"));
@@ -35,50 +42,15 @@ app.get("/races2022", function (req, res) {
 });
 
 app.get("/timeline", function (req, res) {
-    const mysql = require("mysql");
-    const connection = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "a01381720_user_timeline"
-    });
-    let myResults = null;
-    connection.connect();
+    
 
-    let usr = "EVINK";
-    let pwd = "227";
-    connection.execute(
-        "SELECT * FROM user WHERE user.user_name = ? AND user.password = ?",
-        [usr, pwd],
-        function (error, results, fields) {
-            console.log("results: ", results);
-
-            myResults = results;
-
-            if(error) {
-                console.log(error);
-            }
-
-            let table = "<table><tr><th>ID</th><th>DATE</th><th>TEXT</th><th>TIME</th><th>TIME</th><th>VIEWS</th>";
-            for (let i = 0; results.length; i++) {
-                table += "<tr><td>" + results[i].ID + "</td><td>" + results[i].date + "</td><td>" + results[i].text
-                    + "</td><td>" + results[i].time + "</td><td>" + results[i].views + "</td></tr>";
-            }
-
-            table += "</table>";
-            res.send(table);
-            connection.end();
-
-
-
-
-        }
-
-
-
-
-    );
-
+    connection.connect(function(err) {
+        if (err) throw err;
+        connection.query("SELECT * FROM a01381720_user_timeline", function (err, result, fields) {
+          if (err) throw err;
+          res.send(result);
+        });
+      });
     
 });
 
