@@ -6,7 +6,7 @@ public class Elf extends Creature{
     private int mana;
     private static final int REDUCE_MANA = 5;
     private static final int MIN_MANA = 0;
-    private static final int MAX_MANA = 50;
+    private static final int MAX_MANA = 51;
     private static final int SPELL_DAMAGE = 10;
 
 
@@ -22,8 +22,8 @@ public class Elf extends Creature{
 
 
     public void validateMana(int mana){
-        if(mana < MIN_MANA || mana > MAX_MANA){
-            throw new IllegalArgumentException("Invalid Mana");
+        if(!(mana > MIN_MANA && mana < MAX_MANA)){
+            throw new LowManaException("oh no");
         }
     }
 
@@ -35,9 +35,12 @@ public class Elf extends Creature{
                 + ",\n their health is at: " + getHealth() + ",\n their mana is: " + mana + "\n");
     }
 
-    public int castSpell(){
+    public void castSpell(Creature targetCreature){
+        validateMana(mana);
         mana -= REDUCE_MANA;
-        return SPELL_DAMAGE;
+        targetCreature.takeDamage(SPELL_DAMAGE);
+
+
     }
 
 

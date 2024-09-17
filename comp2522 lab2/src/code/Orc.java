@@ -4,7 +4,11 @@ public class Orc extends Creature{
     private Date dateOfBirth;
     private int health;
     private int rage;
-    private int damage;
+    private int damage = 15;
+    private int damageDoubleThreshold = 20;
+    private int addRage = 5;
+    private int MIN_RAGE = 0;
+    private int MAX_RAGE = 30;
 
 
     public Orc(String name, Date dateOfBirth, int health, int rage){
@@ -30,17 +34,17 @@ public class Orc extends Creature{
 
 
     public void validateRage(int rage){
-        if (rage < 0 || rage > 30){
+        if (rage < MIN_RAGE || rage > MAX_RAGE){
             throw new IllegalArgumentException("Invalid rage");
         }
     }
 
     public void berserk(){
-        rage += 5;
-        if (rage >= 20){
-            damage = 20;
-        } else if (rage < 5){
-            throw new IllegalArgumentException("low rage");
+        validateRage(rage);
+
+        rage += addRage;
+        if (rage >= damageDoubleThreshold){
+            damage = damage * 2;
         }
 
         System.out.println(rage);
