@@ -46,25 +46,21 @@ public class Creature {
 
     public void validateDamage(int damage){
         if(damage < 0){
-            throw new IllegalArgumentException("Invalid Damage");
+            throw new DamageException("Invalid Damage");
         }
     }
 
 
     public void heal(int healAmount){
-        validateHeal(healAmount);
-
         if(this.health + healAmount > 100){
             setHealth(100);
+        } else if(healAmount < 0) {
+            throw new HealingException("Invalid Heal");
         }
 
     }
 
-    public void validateHeal(int healAmount){
-        if(healAmount < 0){
-            throw new IllegalArgumentException("Invalid Heal");
-        }
-    }
+
 
 
     public int getAgeYears(Date age){

@@ -36,8 +36,8 @@ public class Elf extends Creature{
     }
 
     public void castSpell(Creature targetCreature){
-        validateMana(mana);
         mana -= REDUCE_MANA;
+        validateMana(mana);
         targetCreature.takeDamage(SPELL_DAMAGE);
 
 
