@@ -20,7 +20,7 @@ void rotateArray(int arr[10][10], int n, int rows, int cols) {
                 col--;
             }
 
-            printf("%d", arr[0][0]);
+
 
 
         }
