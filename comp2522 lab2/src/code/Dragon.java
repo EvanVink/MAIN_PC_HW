@@ -24,7 +24,7 @@ public class Dragon extends Creature{
     }
 
 
-    public void validateFirePower(int firePower){
+    public void validateFirePower(int firePower) throws LowFirePowerException {
         if(!(firePower > MIN_FIRE_POWER)){
             throw new LowFirePowerException("Low Fire Power!");
         } else if(!(firePower < MAX_FIRE_POWER)){
@@ -43,7 +43,7 @@ public class Dragon extends Creature{
     }
 
 
-    public void breatheFire(Creature targetCreature){
+    public void breatheFire(Creature targetCreature) throws LowFirePowerException {
         firePower -= REDUCE_POWER;
         validateFirePower(firePower);
         //minus 20 damage to a creature

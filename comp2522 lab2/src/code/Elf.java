@@ -10,7 +10,7 @@ public class Elf extends Creature{
     private static final int SPELL_DAMAGE = 10;
 
 
-    public Elf(String name, Date dateOfBirth, int health, int mana){
+    public Elf(String name, Date dateOfBirth, int health, int mana) throws LowManaException {
         super(name, dateOfBirth);
         validateMana(mana);
         this.name = name;
@@ -21,7 +21,7 @@ public class Elf extends Creature{
     }
 
 
-    public void validateMana(int mana){
+    public void validateMana(int mana) throws LowManaException {
         if(!(mana > MIN_MANA && mana < MAX_MANA)){
             throw new LowManaException("oh no");
         }
@@ -35,7 +35,7 @@ public class Elf extends Creature{
                 + ",\n their health is at: " + getHealth() + ",\n their mana is: " + mana + "\n");
     }
 
-    public void castSpell(Creature targetCreature){
+    public void castSpell(Creature targetCreature) throws LowManaException {
         mana -= REDUCE_MANA;
         validateMana(mana);
         targetCreature.takeDamage(SPELL_DAMAGE);

@@ -5,7 +5,7 @@ public class Main {
         final Creature orc;
         final Creature drag;
         final Creature elf;
-        final Creature creatureHealer;
+        final Creature healer;
 
 
 
@@ -17,8 +17,7 @@ public class Main {
         drag = new Dragon("Dragon", dragDOB, 100, 100);
         orc = new Orc("Orc", orcDOB, 100, 5);
         elf = new Elf("Elf", elfDOB, 100, 50);
-        creatureHealer = new creatureHealer("Healer", healerDOB);
-
+        healer = new creatureHealer("Healer", healerDOB);
 
         elf.getDetails();
         drag.getDetails();
@@ -42,33 +41,41 @@ public class Main {
 
         System.out.println("\n");
 
-        System.out.println(creatureHealer.getClass());
-        System.out.println(creatureHealer instanceof Creature);
-        System.out.println(creatureHealer instanceof creatureHealer);
+        System.out.println(healer.getClass());
+        System.out.println(healer instanceof Creature);
+        System.out.println(healer instanceof creatureHealer);
 
 
         try {
-            ((Elf)elf).castSpell(drag);
-        } catch(final LowManaException | LowFirePowerException e){
+            if(elf instanceof Elf){
+                ((Elf)elf).castSpell(drag);
+            }
+        } catch(final LowManaException e){
             System.out.println(e.getMessage());
         } finally {
             System.out.println("The Elf has ended his attack");
         }
 
         try {
-            ((Dragon)drag).breatheFire(orc);
-        } catch(final LowManaException | LowFirePowerException e){
+            if(drag instanceof Dragon){
+                ((Dragon)drag).breatheFire(orc);
+            }
+        } catch(final LowFirePowerException e){
             System.out.println(e.getMessage());
         } finally {
             System.out.println("The Dragon has ended his attack");
         }
 
-        ((Orc)orc).berserk(drag);
+        if(orc instanceof Orc){
+            ((Orc)orc).berserk(drag);
+        }
         System.out.println("The Orc has ended his attack");
 
         orc.getDetails();
         try{
-            ((creatureHealer)creatureHealer).healCreature(orc);
+            if(healer instanceof creatureHealer){
+                ((creatureHealer)healer).healCreature(orc);
+            }
         } catch (final HealingException he) {
             System.out.println(he.getMessage());
         } finally {
