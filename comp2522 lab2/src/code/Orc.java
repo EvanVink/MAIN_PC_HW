@@ -1,11 +1,10 @@
 public class Orc extends Creature{
 
     private String name;
-    private Date dateOfBirth;
+    private final Date dateOfBirth;
     private int health;
     private int rage;
     private int damage = 15;
-    private int damageDoubleThreshold = 20;
     private int addRage = 5;
     private int MIN_RAGE = 5;
 
@@ -39,6 +38,7 @@ public class Orc extends Creature{
         }
 
         rage += addRage;
+        int damageDoubleThreshold = 20;
         if (rage >= damageDoubleThreshold){
             damage = damage * 2;
         }

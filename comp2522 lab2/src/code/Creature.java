@@ -1,4 +1,4 @@
-public class Creature {
+ class Creature {
 
     private final String name;
     private final Date dateOfBirth;
