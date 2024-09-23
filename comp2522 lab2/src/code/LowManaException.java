@@ -1,4 +1,4 @@
-public class LowManaException extends RuntimeException {
+public class LowManaException extends Exception {
     public LowManaException(String message) {
 
         super(message);
