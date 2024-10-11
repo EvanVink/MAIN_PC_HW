@@ -6,34 +6,41 @@
 
 void rotateArray(int arr[10][10], int n, int rows, int cols) {
 
-    // int rotation = (n / 90) % 4;
+
     int temp[10][10];
-    if (n == 90) {
-
-        for(int i = 0; i < cols; i++) {
-            int col = cols;
-            for(int j = 0; j < rows; j++) {
 
 
-                temp[i][col] = arr[i][j];
-
-                col--;
-            }
-
-
-
-
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            temp[i][j] = arr[i][j];
         }
+    }
 
+
+    if (n == 90) {
+        for(int column = 0; column < cols; column++) {
+            int decColumn = cols - 1;
+            for(int row = 0; row < rows; row++) {
+                temp[column][decColumn] = arr[row][column];
+                decColumn--;
+            }
+        }
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 arr[i][j] = temp[i][j];
             }
         }
-
-
+    } else if (n == 180) {
+        rotateArray(arr, 90, rows, cols);
+        rotateArray(arr, 90, rows, cols);
+    } else if (n == 270) {
+        rotateArray(arr, 90, rows, cols);
+        rotateArray(arr, 90, rows, cols);
+        rotateArray(arr, 90, rows, cols);
     }
+
+
 
 
 }
@@ -71,7 +78,7 @@ int main(int argc, char **argv){
         printf("\n");
     }
 
-    rotateArray(arr, 90, 5, 5);
+    rotateArray(arr, 270, 5, 5);
 
 
 

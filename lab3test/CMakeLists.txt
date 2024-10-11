@@ -3,4 +3,4 @@ project(lab3test C)
 
 set(CMAKE_C_STANDARD 23)
 
-add_executable(lab3test main.c)
+add_executable(lab3test Lab3.c)
