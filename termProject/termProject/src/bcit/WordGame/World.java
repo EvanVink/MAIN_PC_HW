@@ -2,17 +2,14 @@ package bcit.WordGame;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
 public class World {
 
-    final String country;
-    final String capital;
-    final String factOne;
-    final String factTwo;
-    final String factThree;
 
+    HashMap<String, Country> world = new HashMap<>();
 
 
     public World(){
@@ -20,6 +17,7 @@ public class World {
         final Scanner scan;
         File file;
         String filePath;
+
 
         String[] files = {"a.txt", "b.txt", "c.txt", "d.txt", "e.txt", "f.txt", "g.txt", "h.txt", "i.txt",
         "j.txt", "k.txt", "l.txt", "m.txt", "n.txt", "o.txt", "p.txt", "q.txt", "r.txt", "s.txt",
@@ -33,15 +31,25 @@ public class World {
         try {
             scan = new Scanner(file);
             scan.useDelimiter("[:\n\0]");
-            country = scan.next();
-            capital = scan.next();
-            factOne = scan.next();
-            factTwo = scan.next();
-            factThree = scan.next();
 
-            //gets rid of the extra new line at the end of each country
-            scan.next();
+            while(scan.hasNext()){
 
+                final String country;
+                final String capital;
+                final String factOne;
+                final String factTwo;
+                final String factThree;
+
+                //remove space at the start
+                scan.next();
+
+                country = scan.next();
+                capital = scan.next();
+
+                world.put(country, new Country(country, capital));
+            }
+
+            scan.close();
 
 
         } catch (FileNotFoundException e) {
@@ -51,13 +59,8 @@ public class World {
     }
 
     public void title(){
-        System.out.println(country);
-        System.out.println(capital);
-        System.out.println(factOne);
-        System.out.println(factTwo);
-        System.out.println(factThree);
+        System.out.println(world.get("Albania"));
     }
-
 
 
 
