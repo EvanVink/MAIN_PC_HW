@@ -1,7 +1,5 @@
 package bcit;
 
-
-import bcit.WordGame.Country;
 import bcit.WordGame.World;
 
 public class Main {
@@ -9,11 +7,8 @@ public class Main {
 
         World wor = new World();
 
-        Country con = new Country("Canada", "Ottawa");
 
-//        wor.title();
-
-        con.title();
+        wor.playGame();
 
 
     }
