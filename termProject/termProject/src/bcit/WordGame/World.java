@@ -12,15 +12,17 @@ public class World {
     HashMap<String, Country> world = new HashMap<>();
 
     public World(){
-        Scanner scan;
-        File    file;
-        String  filePath;
+
 
         String[] files = {"a.txt", "b.txt", "c.txt", "d.txt", "e.txt", "f.txt", "g.txt", "h.txt", "i.txt",
         "j.txt", "k.txt", "l.txt", "m.txt", "n.txt", "o.txt", "p.txt", "q.txt", "r.txt", "s.txt",
         "t.txt", "u.txt", "v.txt", "y.txt", "z.txt"};
 
         for(int i = 0; i < files.length; i++) {
+            Scanner scan;
+            File    file;
+            String  filePath;
+
             filePath    = String.format("%s", files[i]);
             file        = new File(filePath);
 
@@ -91,6 +93,33 @@ public class World {
 
     public boolean verifyCapital(String question, String answer){
         return world.get(question).getCapitalCityName().equalsIgnoreCase(answer);
+    }
+
+
+    public void askQuestionCountry(){
+        Random randQuestion;
+        Scanner scanAnswer;
+        final String question;
+        final String country;
+        final String answer;
+        final boolean report;
+
+        randQuestion = new Random();
+        scanAnswer = new Scanner(System.in);
+
+
+        country = (String) world.keySet().toArray()[randQuestion.nextInt(world.size())];
+        question = world.get(country).getCapitalCityName();
+        System.out.println(question);
+        answer = scanAnswer.next();
+        report = verifyCountry(country, answer);
+
+        System.out.println(report ? "CORRECT" : "INCORRECT");
+    }
+
+
+    public boolean verifyCountry(String question, String answer){
+        return question.equalsIgnoreCase(world.get(question).getName());
     }
 
 
