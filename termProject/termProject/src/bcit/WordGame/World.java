@@ -53,19 +53,27 @@ public class World {
 
     }
 
-//    public void title(String country){
-//        Random rand = new Random();
-//        System.out.println(world.get(country).getName());
-//        System.out.println(world.get(country).getCapitalCityName());
-//        System.out.println(world.get(country).getFacts()[rand.nextInt(3)]);
-//        String car = (String) world.keySet().toArray()[rand.nextInt(world.size())];
-//        System.out.println(car);
-//    }
-
     public void playGame(){
+        Random randGame;
+        randGame = new Random();
+
 
         for(int i = 0; i < 10; i++){
-            askQuestionCapital();
+            int randomGameNum;
+            randomGameNum = randGame.nextInt(3);
+            switch(randomGameNum){
+                case 0:
+                    askQuestionCapital();
+                    break;
+                case 1:
+                    askQuestionCountry();
+                    break;
+                case 2:
+                    askQuestionFact();
+                    break;
+                default:
+                    throw new RuntimeException("random number doesnt work");
+            }
         }
 
     }
@@ -81,7 +89,7 @@ public class World {
         scanAnswer      = new Scanner(System.in);
 
         question    = (String) world.keySet().toArray()[randQuestion.nextInt(world.size())];
-        System.out.println(question);
+        System.out.println("Guess the Capital from this Country: " + question);
 
         answer      = scanAnswer.next();
         report      = verifyCapital(question, answer);
@@ -92,6 +100,66 @@ public class World {
     public boolean verifyCapital(String question, String answer){
         return world.get(question).getCapitalCityName().equalsIgnoreCase(answer);
     }
+
+
+    public void askQuestionCountry(){
+        Random randQuestion;
+        Scanner scanAnswer;
+        final String question;
+        final String country;
+        final String answer;
+        final boolean report;
+
+        randQuestion = new Random();
+        scanAnswer = new Scanner(System.in);
+
+
+        country = (String) world.keySet().toArray()[randQuestion.nextInt(world.size())];
+        question = world.get(country).getCapitalCityName();
+        System.out.println("Guess the Country from this Capital: " + question);
+        answer = scanAnswer.next();
+        report = verifyCountry(country, answer);
+
+        System.out.println(report ? "CORRECT" : "INCORRECT");
+    }
+
+
+    public boolean verifyCountry(String question, String answer){
+        return world.get(question).getName().equalsIgnoreCase(answer);
+    }
+
+
+    public void askQuestionFact(){
+        Random randQuestion;
+        Random factRand;
+        Scanner scanAnswer;
+        final String question;
+        final int factIndex;
+        final String country;
+        final String answer;
+        final boolean report;
+
+        randQuestion = new Random();
+        factRand = new Random();
+        scanAnswer = new Scanner(System.in);
+        factIndex = factRand.nextInt(3);
+
+        country = (String) world.keySet().toArray()[randQuestion.nextInt(world.size())];
+
+
+        question = world.get(country).getFacts()[factIndex];
+        System.out.println("Guess this Country from this fact: " + question);
+
+        answer = scanAnswer.next();
+        report = verifyFact(country, answer);
+
+        System.out.println(report ? "CORRECT" : "INCORRECT");
+    }
+
+    public boolean verifyFact(String question, String answer){
+        return world.get(question).getName().equalsIgnoreCase(answer);
+    }
+
 
 
 
