@@ -28,7 +28,7 @@ public class World extends WordGame{
 
             try {
                 scan = new Scanner(file);
-                scan.useDelimiter("[:\n]");
+                scan.useDelimiter("[:\\r\\n]+");
 
                 while (scan.hasNext()) {
 
@@ -36,17 +36,14 @@ public class World extends WordGame{
                     final String capital;
                     String[] facts = new String[3];
 
+
                     country     = scan.next();
-                    System.out.println(country);
                     capital     = scan.next();
-                    System.out.println(capital);
                     facts[0]    = scan.next();
-                    System.out.println(facts[0]);
                     facts[1]    = scan.next();
-                    System.out.println(facts[1]);
                     facts[2]    = scan.next();
-                    System.out.println(facts[2]);
                     scan.nextLine();
+
                     world.put(country, new Country(country, capital, facts));
                 }
 
@@ -63,37 +60,62 @@ public class World extends WordGame{
     @Override
     public void playGame(){
         Random randGame;
+        Scanner playScanner;
+        String output;
+        String playAgain;
         randGame = new Random();
+        playScanner = new Scanner(System.in);
         score[0] = score[0] + 1;
+
+
 
 
         for(int i = 0; i < 10; i++){
             int randomGameNum;
             randomGameNum = randGame.nextInt(3);
-//            switch(randomGameNum){
-//                case 0:
-//                    askQuestionCapital();
-//                    break;
-//                case 1:
-//                    askQuestionCountry();
-//                    break;
-//                case 2:
-//                    askQuestionFact();
-//                    break;
-//                default:
-//                    throw new RuntimeException("random number doesnt work");
-//            }
-            askQuestionCapital();
+            switch(randomGameNum){
+                case 0:
+                    askQuestionCapital();
+                    break;
+                case 1:
+                    askQuestionCountry();
+                    break;
+                case 2:
+                    askQuestionFact();
+                    break;
+                default:
+                    throw new RuntimeException("random number doesnt work");
+            }
         }
 
+        output = String.format("""
+                - %d word game played
+                - %d correct answers on the first attempt
+                - %d correct answers on the second attempt
+                - %d incorrect answers on two attempts
+                """, score[0], score[1], score[2], score[3]);
+
+        Score score;
 
 
+        System.out.println(output + "\nWould you like to play again? (Y/N)");
+        playAgain = playScanner.next();
 
+        while(!playAgain.equalsIgnoreCase("Y") && !playAgain.equalsIgnoreCase("N")){
+            System.out.println("Error, Wrong character, try again: \n");
+            playAgain = playScanner.next();
+        }
 
-
-
+        if(playAgain.equalsIgnoreCase("Y")){
+            playGame();
+        } else if(playAgain.equalsIgnoreCase("N")){
+            System.out.println("Thanks for playing!\nBye!");
+        }
 
     }
+
+
+
 
     @Override
     public void askQuestionCapital(){
@@ -119,7 +141,7 @@ public class World extends WordGame{
             System.out.println("INCORRECT\nSecond Chance: ");
             secondTry = scanAnswer.nextLine();
             if(!verifyCapital(question, secondTry)){
-                System.out.println("INCORRECT\nThe Capital of " + question + " was: " +
+                System.out.println("INCORRECT\nThe Capital of " + question + " is: " +
                         world.get(question).getCapitalCityName() + "\n");
                 score[3] = score[3] + 1;
             } else {
@@ -130,7 +152,6 @@ public class World extends WordGame{
             System.out.println("CORRECT");
             score[1] = score[1] + 1;
         }
-        System.out.println(score[0] + ", " + score[1] + ", " + score[2] + ", " + score[3]);
     }
 
     @Override
@@ -160,11 +181,11 @@ public class World extends WordGame{
 
         //change question to answer(the country (world.get(country).getName())) and pass through the verify
         // and answer to userGuess
-        if(!verifyCountry(question, answer)){
+        if(!verifyCountry(country, answer)){
             System.out.println("INCORRECT\nSecond Chance: ");
             secondTry = scanAnswer.nextLine();
-            if(!verifyCountry(question, secondTry)){
-                System.out.println("INCORRECT\nThe Country of " + question + " was: " +
+            if(!verifyCountry(country, secondTry)){
+                System.out.println("INCORRECT\nThe Country with the Capital " + question + " is: " +
                         country + "\n");
                 score[3] = score[3] + 1;
             } else {
@@ -175,7 +196,6 @@ public class World extends WordGame{
             System.out.println("CORRECT");
             score[1] = score[1] + 1;
         }
-        System.out.println(score[0] + ", " + score[1] + ", " + score[2] + ", " + score[3]);
     }
 
     @Override
@@ -209,12 +229,12 @@ public class World extends WordGame{
 
         answer = scanAnswer.nextLine();
 
-        if(!verifyFact(question, answer)){
+        if(!verifyFact(country, answer)){
             System.out.println("INCORRECT\nSecond Chance: ");
             secondTry = scanAnswer.nextLine();
-            if(!verifyFact(question, secondTry)){
-                System.out.println("INCORRECT\nThe Country of the Fact " + question + " was: " +
-                        world.get(country) + "\n");
+            if(!verifyFact(country, secondTry)){
+                System.out.println("INCORRECT\nThe Country of the Fact " + question + " is: " +
+                        world.get(country).getName() + "\n");
                 score[3] = score[3] + 1;
             } else {
                 System.out.println("CORRECT");
@@ -224,7 +244,6 @@ public class World extends WordGame{
             System.out.println("CORRECT");
             score[1] = score[1] + 1;
         }
-        System.out.println(score[0] + ", " + score[1] + ", " + score[2] + ", " + score[3]);
     }
 
     @Override
