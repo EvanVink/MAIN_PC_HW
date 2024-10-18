@@ -2,18 +2,25 @@ package bcit.WordGame;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Random;
+import java.time.LocalDateTime;
+import java.util.*;
 
 
 public class World extends WordGame{
 
-    HashMap<String, Country> world = new HashMap<>();
+    HashMap<String, Country> world;
 
-    private int[] score = {0, 0, 0, 0};
+    List<Score> allScores;
+
+    private float highestScore;
+    private float oldHighestScore;
+    private String oldHighestScoreBigDate;
+    private String oldHighestScoreSmallDate;
+
+    private final int[] score = {0, 0, 0, 0};
 
     public World(){
+        world = new HashMap<>();
         Scanner scan;
         File    file;
         String  filePath;
@@ -60,17 +67,18 @@ public class World extends WordGame{
     @Override
     public void playGame(){
         Random randGame;
+        Score scores;
         Scanner playScanner;
-        String output;
         String playAgain;
         randGame = new Random();
         playScanner = new Scanner(System.in);
         score[0] = score[0] + 1;
+        allScores = new ArrayList<>();
 
 
 
 
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 3; i++){
             int randomGameNum;
             randomGameNum = randGame.nextInt(3);
             switch(randomGameNum){
@@ -88,17 +96,14 @@ public class World extends WordGame{
             }
         }
 
-        output = String.format("""
-                - %d word game played
-                - %d correct answers on the first attempt
-                - %d correct answers on the second attempt
-                - %d incorrect answers on two attempts
-                """, score[0], score[1], score[2], score[3]);
-
-        Score score;
 
 
-        System.out.println(output + "\nWould you like to play again? (Y/N)");
+        scores = new Score(score[0], score[1], score[2], score[3]);
+
+        allScores.add(scores);
+
+        scores.printScore();
+        System.out.println("Would you like to play again? (Y/N)");
         playAgain = playScanner.next();
 
         while(!playAgain.equalsIgnoreCase("Y") && !playAgain.equalsIgnoreCase("N")){
@@ -109,6 +114,20 @@ public class World extends WordGame{
         if(playAgain.equalsIgnoreCase("Y")){
             playGame();
         } else if(playAgain.equalsIgnoreCase("N")){
+
+            if(scores.getScoreAverage() > getHighScore()){
+                oldHighestScore = highestScore;
+                highestScore = scores.getScoreAverage();
+                String format = String.format("CONGRATULATIONS! You are the " +
+                                "new high score with an average of %.2f points per game; " +
+                                "the previous record was %.2f points per game on" +
+                                "%s at %s", highestScore, oldHighestScore, oldHighestScoreBigDate,
+                                oldHighestScoreSmallDate);
+                System.out.println(format);
+            } else {
+                System.out.println("NO HIGHSCORE");
+            }
+
             System.out.println("Thanks for playing!\nBye!");
         }
 
@@ -179,8 +198,7 @@ public class World extends WordGame{
         System.out.println("Guess the Country from this Capital: \n" + question);
         answer = scanAnswer.nextLine();
 
-        //change question to answer(the country (world.get(country).getName())) and pass through the verify
-        // and answer to userGuess
+
         if(!verifyCountry(country, answer)){
             System.out.println("INCORRECT\nSecond Chance: ");
             secondTry = scanAnswer.nextLine();
@@ -252,6 +270,17 @@ public class World extends WordGame{
     }
 
 
+    public float getHighScore(){
+        for(Score highScore : allScores){
+            System.out.println(highScore.getScoreAverage());
+            if(highScore.getScoreAverage() > highestScore){
+                highestScore = highScore.getScoreAverage();
+                oldHighestScoreBigDate = highScore.getBigDateFormatted();
+                oldHighestScoreSmallDate = highScore.getSmallDateFormatted();
+            }
+        }
+        return highestScore;
+    }
 
 
 }
