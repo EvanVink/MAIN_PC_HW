@@ -2,6 +2,8 @@ package bcit.WordGame;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -10,12 +12,13 @@ public class World extends WordGame{
 
     HashMap<String, Country> world;
 
-    List<Score> allScores;
+    List<Float> allScores;
 
     private float highestScore;
     private float oldHighestScore;
     private String oldHighestScoreBigDate;
     private String oldHighestScoreSmallDate;
+    private Score scores;
 
     private final int[] score = {0, 0, 0, 0};
 
@@ -30,7 +33,7 @@ public class World extends WordGame{
         "t.txt", "u.txt", "v.txt", "y.txt", "z.txt"};
 
         for(int i = 0; i < files.length; i++) {
-            filePath    = String.format("%s", files[i]);
+            filePath    = String.format("Text/%s", files[i]);
             file        = new File(filePath);
 
             try {
@@ -66,16 +69,15 @@ public class World extends WordGame{
 
     @Override
     public void playGame(){
+        System.out.println(oldHighestScoreSmallDate);
+        System.out.println(oldHighestScoreBigDate);
         Random randGame;
-        Score scores;
         Scanner playScanner;
         String playAgain;
         randGame = new Random();
         playScanner = new Scanner(System.in);
         score[0] = score[0] + 1;
         allScores = new ArrayList<>();
-
-
 
 
         for(int i = 0; i < 3; i++){
@@ -100,9 +102,6 @@ public class World extends WordGame{
 
         scores = new Score(score[0], score[1], score[2], score[3]);
 
-        allScores.add(scores);
-
-        scores.printScore();
         System.out.println("Would you like to play again? (Y/N)");
         playAgain = playScanner.next();
 
@@ -116,11 +115,11 @@ public class World extends WordGame{
         } else if(playAgain.equalsIgnoreCase("N")){
 
             if(scores.getScoreAverage() > getHighScore()){
-                oldHighestScore = highestScore;
+                oldHighestScore = allScores.getFirst();
                 highestScore = scores.getScoreAverage();
                 String format = String.format("CONGRATULATIONS! You are the " +
                                 "new high score with an average of %.2f points per game; " +
-                                "the previous record was %.2f points per game on" +
+                                "the previous record was %.2f points per game on " +
                                 "%s at %s", highestScore, oldHighestScore, oldHighestScoreBigDate,
                                 oldHighestScoreSmallDate);
                 System.out.println(format);
@@ -129,6 +128,14 @@ public class World extends WordGame{
             }
 
             System.out.println("Thanks for playing!\nBye!");
+            try {
+                File scoreFile = new File("WordGame/Score.txt");
+                FileWriter fileWriter = new FileWriter(scoreFile, true);
+                fileWriter.write(scores.stringScore() + "\n");
+                fileWriter.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
@@ -271,15 +278,50 @@ public class World extends WordGame{
 
 
     public float getHighScore(){
-        for(Score highScore : allScores){
-            System.out.println(highScore.getScoreAverage());
-            if(highScore.getScoreAverage() > highestScore){
-                highestScore = highScore.getScoreAverage();
-                oldHighestScoreBigDate = highScore.getBigDateFormatted();
-                oldHighestScoreSmallDate = highScore.getSmallDateFormatted();
+
+
+        try {
+            File highScoreFile = new File("WordGame/Score.txt");
+            Scanner txtScanner = new Scanner(highScoreFile);
+
+            txtScanner.useDelimiter("(- Date and Time: |- Games Played: |- Correct First Attempts: |" +
+                    "- Correct Second Attempts: |- Incorrect Attempts: |- Total Score: |- Average Score: |" +
+                    "\\n)+");
+
+            while (txtScanner.hasNext()){
+
+                String value;
+                String time;
+                String bigTime;
+                String smallTime;
+
+                time = txtScanner.next();
+                bigTime = time.substring(0, 9);
+                smallTime = time.substring(11);
+                System.out.println(bigTime);
+                System.out.println(smallTime);
+
+                for(int i = 0; i < 5; i++){
+                    System.out.println(txtScanner.next());;
+                }
+
+                value = txtScanner.next().replaceAll("Points/Game", " ").trim();
+                allScores.add(Float.parseFloat(value));
+                txtScanner.nextLine();
+
             }
+
+            Collections.sort(allScores);
+            Collections.reverse(allScores);
+            System.out.println(allScores);
+            return allScores.getFirst();
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
-        return highestScore;
+
+
+
     }
 
 

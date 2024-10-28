@@ -1,0 +1,64 @@
+- Date and Time: 2024-10-18 09:29:11
+- Games Played: 1
+- Correct First Attempts: 0
+- Correct Second Attempts: 1
+- Incorrect Attempts: 2
+- Total Score: 1 Points
+- Average Score: 1.00 Points/Game
+
+- Date and Time: 2024-10-18 09:30:28
+- Games Played: 1
+- Correct First Attempts: 3
+- Correct Second Attempts: 0
+- Incorrect Attempts: 0
+- Total Score: 6 Points
+- Average Score: 6.00 Points/Game
+
+- Date and Time: 2024-10-18 12:07:25
+- Games Played: 1
+- Correct First Attempts: 0
+- Correct Second Attempts: 0
+- Incorrect Attempts: 3
+- Total Score: 0 Points
+- Average Score: 0.00 Points/Game
+
+- Date and Time: 2024-10-18 12:08:14
+- Games Played: 1
+- Correct First Attempts: 2
+- Correct Second Attempts: 0
+- Incorrect Attempts: 1
+- Total Score: 4 Points
+- Average Score: 4.00 Points/Game
+
+- Date and Time: 2024-10-18 12:14:09
+- Games Played: 1
+- Correct First Attempts: 4
+- Correct Second Attempts: 1
+- Incorrect Attempts: 0
+- Total Score: 9 Points
+- Average Score: 9.00 Points/Game
+
+- Date and Time: 2024-10-18 12:45:30
+- Games Played: 1
+- Correct First Attempts: 0
+- Correct Second Attempts: 0
+- Incorrect Attempts: 3
+- Total Score: 0 Points
+- Average Score: 0.00 Points/Game
+
+- Date and Time: 2024-10-18 12:46:46
+- Games Played: 1
+- Correct First Attempts: 0
+- Correct Second Attempts: 0
+- Incorrect Attempts: 3
+- Total Score: 0 Points
+- Average Score: 0.00 Points/Game
+
+- Date and Time: 2024-10-18 14:19:10
+- Games Played: 1
+- Correct First Attempts: 0
+- Correct Second Attempts: 0
+- Incorrect Attempts: 3
+- Total Score: 0 Points
+- Average Score: 0.00 Points/Game
+

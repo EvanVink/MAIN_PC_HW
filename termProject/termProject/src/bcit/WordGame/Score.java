@@ -46,7 +46,23 @@ public class Score {
 
     }
 
-    public void printScore(){
+
+
+//    public Score(float highestScore, String highestScoreDate){
+//
+//
+//
+//        bigDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        smallDateFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+//
+//        bigDateFormatted = dateTimePlayed.format(bigDateFormatter);
+//        smallDateFormatted = dateTimePlayed.format(smallDateFormatter);
+//
+//
+//    }
+
+
+    public String stringScore(){
 
 
         final String output;
@@ -66,7 +82,7 @@ public class Score {
                 numCorrectFirstAttempt, numCorrectSecondAttempt,
                 numIncorrectTwoAttempts, totalScore, scoreAverage);
 
-        System.out.println(output);
+        return output;
 
 
     }

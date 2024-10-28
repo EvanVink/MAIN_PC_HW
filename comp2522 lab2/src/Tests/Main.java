@@ -14,7 +14,7 @@ public class Main {
         Date orcDOB = new Date(1900, 8, 23);
         Date healerDOB = new Date(1850, 3, 2);
 
-        drag = new Dragon("Dragon", dragDOB, 100, 100);
+        drag = new Dragon("Dragon", dragDOB, 100, 10);
         orc = new Orc("Orc", orcDOB, 100, 5);
         elf = new Elf("Elf", elfDOB, 100, 50);
         healer = new creatureHealer("Healer", healerDOB);
