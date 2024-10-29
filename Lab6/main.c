@@ -35,31 +35,46 @@ void newStudent(int amountOfStudents) {
     int diff;
 
 
-    file = fopen("C:\\Users\\socce\\Desktop\\MAINPCHW\\MAIN_PC_HW\\Lab6\\input.txt", "r");
+    //C:\\Users\\socce\\Desktop\\MAINPCHW\\MAIN_PC_HW\\Lab6
+    //E:\\CST HOMEWORK\\MAIN_PC_HW\\Lab6
+
+    file = fopen("E:\\CST HOMEWORK\\MAIN_PC_HW\\Lab6\\input.txt", "r");
+
+
+    //nest the current for loop into a while loop to fgets until its not null to parse through it
+
+    // while(fgets(firstName, 100, file) != nullptr) {
+for (int k = 0; k < 6; k++) {
     fgets(firstName, 100, file);
 
     char *studentItem = strtok(firstName, " ");
 
-    //nest the current for loop into a while loop to fgets until its not null to parse through it
-
-    for(int i = 0; i < 5; i++) {
-
-//add a counter for the for loop and change the for loop to while NOT NULL and if the count is 5
-        //then add it to a international student
-        //if its 4 then add it to domestic student
+    while(studentItem != nullptr) {
         printf("%s\n", studentItem);
 
-        studentItem = strtok(NULL, " ");
+        studentItem = strtok(nullptr, " ");
     }
+    // for(int i = 0; i <5; i++) {
+    //     if (studentItem == nullptr) break;
+    //     //add a counter for the for loop and change the for loop to while NOT NULL and if the count is 5
+    //     //then add it to a international student
+    //     //if its 4 then add it to domestic student
+    //     printf("%s\n", studentItem);
+    //
+    //     studentItem = strtok(nullptr, " ");
+    // }
+}
+    // }
 
+    // printf("%s\n", fgets(firstName, 100, file));
+    //
+    // printf("%s\n", fgets(firstName, 100, file));
+    // printf("%s\n", fgets(firstName, 100, file));
+    // printf("%s\n", fgets(firstName, 100, file));
+    // printf("%s\n", fgets(firstName, 100, file));
+    // printf("%s\n", fgets(firstName, 100, file));
+    //
 
-
-
-    fgets(firstName, 100, file);
-
-    // char *student = strtok();
-
-    printf("%s", firstName);
 
     // strcpy(studentD.firstName, "Evan");
     // strcpy(studentD.lastName, "Vink");
@@ -72,7 +87,7 @@ void newStudent(int amountOfStudents) {
 int main() {
 
     newStudent(0);
-    printf("%s, %s, %f", array[0].firstName, array[0].lastName, array[0].GPA);
+    // printf("%s, %s, %f", array[0].firstName, array[0].lastName, array[0].GPA);
 
 
 
