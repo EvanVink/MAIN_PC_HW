@@ -38,7 +38,7 @@ void newStudent(int amountOfStudents) {
     //C:\\Users\\socce\\Desktop\\MAINPCHW\\MAIN_PC_HW\\Lab6
     //E:\\CST HOMEWORK\\MAIN_PC_HW\\Lab6
 
-    file = fopen("E:\\CST HOMEWORK\\MAIN_PC_HW\\Lab6\\input.txt", "r");
+    file = fopen("C:\\Users\\socce\\Desktop\\MAINPCHW\\MAIN_PC_HW\\Lab6\\input.txt", "r");
 
 
     //nest the current for loop into a while loop to fgets until its not null to parse through it
