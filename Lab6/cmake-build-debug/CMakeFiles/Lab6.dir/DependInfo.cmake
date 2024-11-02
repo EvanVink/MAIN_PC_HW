@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "E:/CST HOMEWORK/MAIN_PC_HW/Lab6/Student.c" "CMakeFiles/Lab6.dir/Student.c.obj" "gcc" "CMakeFiles/Lab6.dir/Student.c.obj.d"
   "E:/CST HOMEWORK/MAIN_PC_HW/Lab6/main.c" "CMakeFiles/Lab6.dir/main.c.obj" "gcc" "CMakeFiles/Lab6.dir/main.c.obj.d"
   )
 

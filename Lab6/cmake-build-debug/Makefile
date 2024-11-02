@@ -128,6 +128,30 @@ Lab6/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Lab6.dir\build.make CMakeFiles/Lab6.dir/build
 .PHONY : Lab6/fast
 
+Student.obj: Student.c.obj
+.PHONY : Student.obj
+
+# target to build an object file
+Student.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Lab6.dir\build.make CMakeFiles/Lab6.dir/Student.c.obj
+.PHONY : Student.c.obj
+
+Student.i: Student.c.i
+.PHONY : Student.i
+
+# target to preprocess a source file
+Student.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Lab6.dir\build.make CMakeFiles/Lab6.dir/Student.c.i
+.PHONY : Student.c.i
+
+Student.s: Student.c.s
+.PHONY : Student.s
+
+# target to generate assembly for a file
+Student.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Lab6.dir\build.make CMakeFiles/Lab6.dir/Student.c.s
+.PHONY : Student.c.s
+
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -161,6 +185,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Lab6
+	@echo ... Student.obj
+	@echo ... Student.i
+	@echo ... Student.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
