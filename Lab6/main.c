@@ -24,11 +24,16 @@ int main(int argc, char *argv[]) {
     internationalStudent *internationalStudents = NULL;
     int internationalCount = 0;
 
+    char *input = argv[1];
+    char *output = argv[2];
+    char option = atoi(argv[3]);
+
+
     // Call the rFile function
-    rFile("input.txt", &domesticStudents, &domesticCount, &internationalStudents, &internationalCount);
+    rFile(input, &domesticStudents, &domesticCount, &internationalStudents, &internationalCount);
 
     // Print the students
-    printStudents(domesticStudents, domesticCount, internationalStudents, internationalCount);
+    printStudents(output, option, domesticStudents, domesticCount, internationalStudents, internationalCount);
 
     // Free allocated memory
     free(domesticStudents);

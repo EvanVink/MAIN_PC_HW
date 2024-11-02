@@ -8,9 +8,7 @@
 #include <stdlib.h>
 
 
-// void wFile() {
-//
-// }
+
 
 void addInternationalStudent(internationalStudent **students, int *count, const char *firstName, const char *lastName, float GPA, int TOEFL) {
 
@@ -50,7 +48,7 @@ void rFile(const char *inputFile, domesticStudent **domesticStudents, int *domes
     FILE *file;
     char line[100];
 
-    file = fopen("input.txt", "r");
+    file = fopen(inputFile, "r");
 
     while(fgets(line, 100, file)) {
         domesticStudent studentD;
@@ -111,15 +109,73 @@ void rFile(const char *inputFile, domesticStudent **domesticStudents, int *domes
 }
 
 
-void printStudents(domesticStudent *domesticStudents, int domesticCount, internationalStudent *internationalStudents, int internationalCount) {
-    printf("\nDomestic Students:\n");
-    for (int i = 0; i < domesticCount; i++) {
-        printf("Name: %s %s, GPA: %.2f, Type: %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName, domesticStudents[i].GPA, domesticStudents[i].studentType);
+void printStudents(char *output, int option, domesticStudent *domesticStudents, int domesticCount, internationalStudent *internationalStudents, int internationalCount) {
+
+    FILE *outFile;
+
+    outFile = fopen(output, "w");
+
+
+    switch(option) {
+        case 1:
+            for(int i = 0; i < domesticCount; i++) {
+                if(domesticStudents[i].GPA > 3.9) {
+                    // char *outputText = strcat(domesticStudents[i].firstName, "");
+
+                    fprintf(outFile, "Domestic Students with a GPA of above 3.9:\n%s %s %.3f %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
+                        domesticStudents[i].GPA, domesticStudents[i].studentType);
+
+                    // fputs(domesticStudents[i].firstName, outFile);
+                }
+            }
+            break;
+        case 2:
+            for(int i = 0; i < internationalCount; i++) {
+                if(internationalStudents[i].GPA > 3.9 && internationalStudents[i].TOEFL >= 70) {
+                    fprintf(outFile, "International Students with a GPA of above 3.9 and TOEFL above 70:\n%s %s %.3f %c %d\n",
+                        internationalStudents[i].firstName, internationalStudents[i].lastName,
+                        internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
+                }
+            }
+            break;
+        case 3:
+            for(int i = 0; i < domesticCount; i++) {
+                if(domesticStudents[i].GPA > 3.9) {
+                    // char *outputText = strcat(domesticStudents[i].firstName, "");
+
+                    fprintf(outFile, "Domestic Students with a GPA of above 3.9:\n%s %s %.3f %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
+                        domesticStudents[i].GPA, domesticStudents[i].studentType);
+
+                    // fputs(domesticStudents[i].firstName, outFile);
+                }
+            }
+            for(int i = 0; i < internationalCount; i++) {
+                if(internationalStudents[i].GPA > 3.9 && internationalStudents[i].TOEFL >= 70) {
+                    fprintf(outFile, "International Students with a GPA of above 3.9 and TOEFL above 70:\n%s %s %.3f %c %d\n",
+                        internationalStudents[i].firstName, internationalStudents[i].lastName,
+                        internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
+                }
+            }
+            break;
+
     }
 
-    printf("\nInternational Students:\n");
-    for (int i = 0; i < internationalCount; i++) {
-        printf("Name: %s %s, GPA: %.2f, Type: %c, TOEFL: %d\n", internationalStudents[i].firstName, internationalStudents[i].lastName, internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
-    }
+
+
+
+
+
+
+
+    // printf("\nDomestic Students:\n");
+    // for (int i = 0; i < domesticCount; i++) {
+    //     printf("Name: %s %s, GPA: %.2f, Type: %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName, domesticStudents[i].GPA, domesticStudents[i].studentType);
+    // }
+    //
+    // printf("\nInternational Students:\n");
+    // for (int i = 0; i < internationalCount; i++) {
+    //     printf("Name: %s %s, GPA: %.2f, Type: %c, TOEFL: %d\n", internationalStudents[i].firstName, internationalStudents[i].lastName, internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
+    // }
 }
+
 

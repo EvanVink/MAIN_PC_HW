@@ -24,6 +24,7 @@ typedef struct {
 void rFile(const char *inputFile, domesticStudent **domesticStudents, int *domesticCount, internationalStudent **internationalStudents, int *internationalCount);
 void addDomesticStudent(domesticStudent **students, int *count, const char *firstName, const char *lastName, float GPA);
 void addInternationalStudent(internationalStudent **students, int *count, const char *firstName, const char *lastName, float GPA, int TOEFL);
-void printStudents(domesticStudent *domesticStudents, int domesticCount, internationalStudent *internationalStudents, int internationalCount);
+void printStudents(char *output, int option, domesticStudent *domesticStudents, int domesticCount, internationalStudent *internationalStudents, int internationalCount);
+
 
 #endif //STUDENT_H

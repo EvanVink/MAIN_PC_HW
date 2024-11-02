@@ -1,0 +1,4 @@
+Domestic Students with a GPA of above 3.9:
+John Den 4.100 D
+International Students with a GPA of above 3.9 and TOEFL above 70:
+Alice Smith 4.200 I 80
