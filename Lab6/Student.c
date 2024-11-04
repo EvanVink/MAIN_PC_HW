@@ -153,7 +153,7 @@ void rFile(const char *inputFile, char *output, domesticStudent **domesticStuden
  * @param internationalStudents Array of international students.
  * @param internationalCount Number of international students in the array.
  */
-void printStudents(char *output, int option, domesticStudent *domesticStudents, int domesticCount, internationalStudent *internationalStudents, int internationalCount) {
+void printStudents(char *output, int option, domesticStudent *domesticStudents, int domesticCount, internationalStudent *internationalStudents, int internationalCount, int sort) {
 
     FILE *outFile = fopen(output, "w");
 
@@ -198,11 +198,86 @@ void printStudents(char *output, int option, domesticStudent *domesticStudents, 
                 }
             }
             break;
+        case 4:
+
+        if(sort == 1) {
+            int y;
+            domesticStudent dKey;
+
+            //insertion sort for the domestic students
+            for(int x = 1; x < domesticCount; x++) {
+                dKey = domesticStudents[x];
+                y = x - 1;
+
+                while(y >= 0 && domesticStudents[y].GPA > dKey.GPA) {
+                    domesticStudents[y + 1] = domesticStudents[y];
+                    y = y - 1;
+                }
+
+                domesticStudents[y + 1] = dKey;
+            }
+
+            int p;
+            internationalStudent iKey;
+
+            //insertion sort for the international students
+            for(int x = 1; x < internationalCount; x++) {
+                iKey = internationalStudents[x];
+                p = x - 1;
+
+                while(p >= 0 && internationalStudents[p].GPA > iKey.GPA) {
+                    internationalStudents[p + 1] = internationalStudents[p];
+                    p = p - 1;
+                }
+
+                internationalStudents[p + 1] = iKey;
+            }
+
+            fprintf(outFile, "Domestic Students GPA in descending order:\n");
+
+            for(int i = domesticCount - 1; i >= 0; i--) {
+
+                fprintf(outFile, "%s %s %.3f %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
+                    domesticStudents[i].GPA, domesticStudents[i].studentType);
+
+            }
+
+            fprintf(outFile, "International Students GPA in descending order:\n");
+
+            for(int i = internationalCount - 1; i >= 0; i--) {
+
+                fprintf(outFile, "%s %s %.3f %c %d\n", internationalStudents[i].firstName, internationalStudents[i].lastName,
+                    internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
+
+            }
+
+        } else if (sort == 0) {
+
+            fprintf(outFile, "Domestic Students GPA:\n");
+
+            for(int i = 0; i < domesticCount; i++) {
+
+                fprintf(outFile, "%s %s %.3f %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
+                    domesticStudents[i].GPA, domesticStudents[i].studentType);
+            }
+
+            fprintf(outFile, "International Students GPA:\n");
+
+            for(int i = 0; i < domesticCount; i++) {
+
+                fprintf(outFile, "%s %s %.3f %c %d\n", internationalStudents[i].firstName, internationalStudents[i].lastName,
+                    internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
+
+            }
+        } else {
+            fprintf(outFile, "Error: invalid sort choice");
+            exit(1);
+        }
+        break;
+
         default:
             fprintf(outFile, "Error: invalid choice");
             exit(1);
-
-
     }
 
 }
