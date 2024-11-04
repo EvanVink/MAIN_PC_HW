@@ -10,32 +10,24 @@
 
 int main(int argc, char *argv[]) {
 
-    // char *input = argv[1];
-    // domesticStudent *domesticStudents = NULL;
-    // internationalStudent *internationalStudents = NULL;
-    // int domesticCount = 0;
-    // int internationalCount = 0;
-    //
-    // rFile(input, &domesticStudents, &domesticCount, &internationalStudents, &internationalCount);
-    //
-    // // printStudents(domesticStudents, domesticCount, internationalStudents, internationalCount);
     domesticStudent *domesticStudents = NULL;
     int domesticCount = 0;
     internationalStudent *internationalStudents = NULL;
     int internationalCount = 0;
+
 
     char *input = argv[1];
     char *output = argv[2];
     char option = atoi(argv[3]);
 
 
-    // Call the rFile function
-    rFile(input, &domesticStudents, &domesticCount, &internationalStudents, &internationalCount);
+    //Call the rFile function
+    rFile(input, output, &domesticStudents, &domesticCount, &internationalStudents, &internationalCount);
 
-    // Print the students
+    //Print the students
     printStudents(output, option, domesticStudents, domesticCount, internationalStudents, internationalCount);
 
-    // Free allocated memory
+    //Free allocated memory
     free(domesticStudents);
     free(internationalStudents);
 

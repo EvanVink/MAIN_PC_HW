@@ -9,7 +9,17 @@
 
 
 
-
+/**
+ * Adds an international student to the students array.
+ * Allocates memory for a new international student and assigns their attributes.
+ *
+ * @param students Pointer to the array of internationalStudent structures.
+ * @param count Pointer to the number of students in the array.
+ * @param firstName The first name of the student.
+ * @param lastName The last name of the student.
+ * @param GPA The GPA of the student.
+ * @param TOEFL The TOEFL score of the student.
+ */
 void addInternationalStudent(internationalStudent **students, int *count, const char *firstName, const char *lastName, float GPA, int TOEFL) {
 
     *students = realloc(*students, (*count + 1) * sizeof(internationalStudent));
@@ -27,6 +37,16 @@ void addInternationalStudent(internationalStudent **students, int *count, const 
 
 }
 
+/**
+ * Adds a domestic student to the students array.
+ * Allocates memory for a new domestic student and assigns their attributes.
+ *
+ * @param students Pointer to the array of domesticStudent structures.
+ * @param count Pointer to the number of students in the array.
+ * @param firstName The first name of the student.
+ * @param lastName The last name of the student.
+ * @param GPA The GPA of the student.
+ */
 void addDomesticStudent(domesticStudent **students, int *count, const char *firstName, const char *lastName, float GPA) {
     *students = realloc(*students, (*count + 1) * sizeof(domesticStudent));
     if (*students == NULL) {
@@ -42,17 +62,26 @@ void addDomesticStudent(domesticStudent **students, int *count, const char *firs
     (*count)++;
 }
 
-
-void rFile(const char *inputFile, domesticStudent **domesticStudents, int *domesticCount, internationalStudent **internationalStudents, int *internationalCount) {
+/**
+ * Reads student data from an input file and populates domestic and international student arrays.
+ * Writes errors related to invalid file format to a specified output file.
+ *
+ * @param inputFile The path to the input file containing student data.
+ * @param output The path to the output file for error messages.
+ * @param domesticStudents Pointer to the array of domesticStudent structures.
+ * @param domesticCount Pointer to the number of domestic students in the array.
+ * @param internationalStudents Pointer to the array of internationalStudent structures.
+ * @param internationalCount Pointer to the number of international students in the array.
+ */
+void rFile(const char *inputFile, char *output, domesticStudent **domesticStudents, int *domesticCount, internationalStudent **internationalStudents, int *internationalCount) {
 
     FILE *file;
+    FILE *outputFILE = fopen(output, "w");;
     char line[100];
 
     file = fopen(inputFile, "r");
 
     while(fgets(line, 100, file)) {
-        domesticStudent studentD;
-        internationalStudent studentI;
         char firstName[100];
         char lastName[100];
         double GPA;
@@ -85,16 +114,18 @@ void rFile(const char *inputFile, domesticStudent **domesticStudents, int *domes
                     }
                     break;
                 default:
-                    //write error method
+                    fprintf(outputFILE, "Error: invalid format");
+                    exit(1);
             }
 
             count++;
             studentItem = strtok(NULL, " ");
         }
 
-        // if(count < 4 || count > 5) {
-        //     //write error method
-        // }
+        if(count < 4 || count > 5) {
+            fprintf(outputFILE, "Error: invalid format");
+            exit(1);
+        }
 
         if(studentType == 'D') {
             addDomesticStudent(domesticStudents, domesticCount, firstName, lastName, GPA);
@@ -102,80 +133,79 @@ void rFile(const char *inputFile, domesticStudent **domesticStudents, int *domes
         } else if(studentType == 'I') {
             addInternationalStudent(internationalStudents, internationalCount, firstName, lastName, GPA, TOEFL);
 
+        } else {
+            fprintf(outputFILE, "Error: invalid student Type");
+            exit(1);
         }
 
     }
 
 }
 
-
+/**
+ * Prints filtered student information to a specified output file.
+ * Outputs students based on the specified option, such as high GPA or high GPA and TOEFL.
+ *
+ * @param output The path to the output file for writing student information.
+ * @param option The filtering option (1, 2, or 3) for selecting students to print.
+ * @param domesticStudents Array of domestic students.
+ * @param domesticCount Number of domestic students in the array.
+ * @param internationalStudents Array of international students.
+ * @param internationalCount Number of international students in the array.
+ */
 void printStudents(char *output, int option, domesticStudent *domesticStudents, int domesticCount, internationalStudent *internationalStudents, int internationalCount) {
 
-    FILE *outFile;
-
-    outFile = fopen(output, "w");
-
+    FILE *outFile = fopen(output, "w");
 
     switch(option) {
         case 1:
             for(int i = 0; i < domesticCount; i++) {
                 if(domesticStudents[i].GPA > 3.9) {
-                    // char *outputText = strcat(domesticStudents[i].firstName, "");
 
                     fprintf(outFile, "Domestic Students with a GPA of above 3.9:\n%s %s %.3f %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
                         domesticStudents[i].GPA, domesticStudents[i].studentType);
 
-                    // fputs(domesticStudents[i].firstName, outFile);
                 }
             }
             break;
         case 2:
             for(int i = 0; i < internationalCount; i++) {
+
                 if(internationalStudents[i].GPA > 3.9 && internationalStudents[i].TOEFL >= 70) {
                     fprintf(outFile, "International Students with a GPA of above 3.9 and TOEFL above 70:\n%s %s %.3f %c %d\n",
                         internationalStudents[i].firstName, internationalStudents[i].lastName,
                         internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
+
                 }
             }
             break;
         case 3:
             for(int i = 0; i < domesticCount; i++) {
                 if(domesticStudents[i].GPA > 3.9) {
-                    // char *outputText = strcat(domesticStudents[i].firstName, "");
 
                     fprintf(outFile, "Domestic Students with a GPA of above 3.9:\n%s %s %.3f %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
                         domesticStudents[i].GPA, domesticStudents[i].studentType);
 
-                    // fputs(domesticStudents[i].firstName, outFile);
                 }
             }
             for(int i = 0; i < internationalCount; i++) {
                 if(internationalStudents[i].GPA > 3.9 && internationalStudents[i].TOEFL >= 70) {
+
                     fprintf(outFile, "International Students with a GPA of above 3.9 and TOEFL above 70:\n%s %s %.3f %c %d\n",
                         internationalStudents[i].firstName, internationalStudents[i].lastName,
                         internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
+
                 }
             }
             break;
+        default:
+            fprintf(outFile, "Error: invalid choice");
+            exit(1);
+
 
     }
 
-
-
-
-
-
-
-
-    // printf("\nDomestic Students:\n");
-    // for (int i = 0; i < domesticCount; i++) {
-    //     printf("Name: %s %s, GPA: %.2f, Type: %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName, domesticStudents[i].GPA, domesticStudents[i].studentType);
-    // }
-    //
-    // printf("\nInternational Students:\n");
-    // for (int i = 0; i < internationalCount; i++) {
-    //     printf("Name: %s %s, GPA: %.2f, Type: %c, TOEFL: %d\n", internationalStudents[i].firstName, internationalStudents[i].lastName, internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
-    // }
 }
+
 
 
