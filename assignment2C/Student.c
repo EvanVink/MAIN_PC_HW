@@ -1,10 +1,7 @@
-//
-// Created by socce on 11/1/2024.
-//
+
 #include <stdio.h>
 #include <string.h>
 #include "Student.h"
-
 #include <stdlib.h>
 
 
@@ -19,8 +16,12 @@
  * @param lastName The last name of the student.
  * @param GPA The GPA of the student.
  * @param TOEFL The TOEFL score of the student.
+ * @param month
+ * @param day
+ * @param year
  */
-void addInternationalStudent(internationalStudent **students, int *count, const char *firstName, const char *lastName, float GPA, int TOEFL) {
+void addInternationalStudent(internationalStudent **students, int *count, const char *firstName, const char *lastName,
+    float GPA, int TOEFL, const char *month, int day, int year) {
 
     *students = realloc(*students, (*count + 1) * sizeof(internationalStudent));
     if(*students == NULL) {
@@ -31,6 +32,9 @@ void addInternationalStudent(internationalStudent **students, int *count, const 
     strcpy((*students)[*count].firstName, firstName);
     strcpy((*students)[*count].lastName, lastName);
     (*students)[*count].GPA = GPA;
+    (*students)[*count].day = day;
+    strcpy((*students)[*count].month, month);
+    (*students)[*count].year = year;
     (*students)[*count].studentType = 'I';
     (*students)[*count].TOEFL = TOEFL;
     (*count)++;
@@ -46,8 +50,12 @@ void addInternationalStudent(internationalStudent **students, int *count, const 
  * @param firstName The first name of the student.
  * @param lastName The last name of the student.
  * @param GPA The GPA of the student.
+ * @param month
+ * @param day
+ * @param year
  */
-void addDomesticStudent(domesticStudent **students, int *count, const char *firstName, const char *lastName, float GPA) {
+void addDomesticStudent(domesticStudent **students, int *count, const char *firstName, const char *lastName,
+    float GPA, const char *month, int day, int year) {
     *students = realloc(*students, (*count + 1) * sizeof(domesticStudent));
     if (*students == NULL) {
         printf("Memory allocation failed for domestic students\n");
@@ -58,6 +66,9 @@ void addDomesticStudent(domesticStudent **students, int *count, const char *firs
     strcpy((*students)[*count].firstName, firstName);
     strcpy((*students)[*count].lastName, lastName);
     (*students)[*count].GPA = GPA;
+    (*students)[*count].day = day;
+    strcpy((*students)[*count].month, month);
+    (*students)[*count].year = year;
     (*students)[*count].studentType = 'D';
     (*count)++;
 }
@@ -74,7 +85,6 @@ void addDomesticStudent(domesticStudent **students, int *count, const char *firs
  * @param internationalCount Pointer to the number of international students in the array.
  */
 void rFile(const char *inputFile, char *output, domesticStudent **domesticStudents, int *domesticCount, internationalStudent **internationalStudents, int *internationalCount) {
-
     FILE *file;
     FILE *outputFILE = fopen(output, "w");;
     char line[100];
@@ -84,63 +94,134 @@ void rFile(const char *inputFile, char *output, domesticStudent **domesticStuden
     while(fgets(line, 100, file)) {
         char firstName[100];
         char lastName[100];
-        double GPA;
+        float GPA = 0;
         char studentType = '\0';
         int TOEFL = 0;
+        int day = 0;
+        char month[11];
+        int year = 0;
 
 
-        char *studentItem = strtok(line, " ");
-        int count = 0;
+        int lineScaned = sscanf(line, "%s %s %s %f %c %d", firstName, lastName, month, &GPA, &studentType, &TOEFL);
 
 
-        while(studentItem != NULL) {
+        printf("%s %s %s %.2f %c %d\n", firstName, lastName, month, GPA, studentType, TOEFL);
 
-            switch (count) {
-                case 0:
-                    strcpy(firstName, studentItem);
-                    break;
-                case 1:
-                    strcpy(lastName, studentItem);
-                    break;
-                case 2:
-                    GPA = atof(studentItem);
-                    break;
-                case 3:
-                    studentType = studentItem[0];
-                    break;
-                case 4:
-                    if (studentType == 'I') {
-                        TOEFL = atoi(studentItem);
-                    }
-                    break;
-                default:
-                    fprintf(outputFILE, "Error: invalid format");
-                    exit(1);
-            }
 
-            count++;
-            studentItem = strtok(NULL, " ");
-        }
 
-        if(count < 4 || count > 5) {
-            fprintf(outputFILE, "Error: invalid format");
-            exit(1);
-        }
+
+
+
+
+
+
 
         if(studentType == 'D') {
-            addDomesticStudent(domesticStudents, domesticCount, firstName, lastName, GPA);
+            addDomesticStudent(domesticStudents, domesticCount, firstName, lastName, GPA, month, day, year);
 
         } else if(studentType == 'I') {
-            addInternationalStudent(internationalStudents, internationalCount, firstName, lastName, GPA, TOEFL);
+            addInternationalStudent(internationalStudents, internationalCount, firstName, lastName, GPA, TOEFL, month, day, year);
 
         } else {
-            fprintf(outputFILE, "Error: invalid student Type");
+            fprintf(outputFILE, "Error: invalid student Type %c", studentType);
             exit(1);
         }
 
-    }
 
+        // char *studentItem = strtok(line, " ");
+        //
+        // int count = 0;
+        //
+        // for(int i = 0; i < 2; i++) {
+        //     switch (count) {
+        //         case 0:
+        //             strcpy(firstName, studentItem);
+        //             break;
+        //         case 1:
+        //             strcpy(lastName, studentItem);
+        //             break;
+        //     }
+        //     count++;
+        //     studentItem = strtok(NULL, " ");
+        // }
+        //
+        // char *studentDate = strtok(studentItem, "-");
+        // for(int i = 0; i < 3; i++) {
+        //     switch (count) {
+        //         case 2:
+        //             strcpy(month, studentDate);
+        //             break;
+        //         case 3:
+        //             day = atoi(studentDate);
+        //             break;
+        //         case 4:
+        //             year = atoi(studentDate);
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        //     count++;
+        //     studentDate = strtok(NULL, "-");
+        //
+        //
+        // }
+        //
+        // while(studentItem != NULL) {
+        //     switch (count) {
+        //         case 5:
+        //             printf("%s", studentItem);
+        //             studentType = studentItem[0];
+        //             break;
+        //         case 6:
+        //             if (studentType == 'I') {
+        //                 TOEFL = atoi(studentItem);
+        //             }
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        //     count++;
+        //     studentItem = strtok(NULL, " ");
+        // }
+
+    }
 }
+
+
+        // while(studentItem != NULL) {
+        //
+        //     switch (count) {
+        //         case 0:
+        //             strcpy(firstName, studentItem);
+        //             break;
+        //         case 1:
+        //             strcpy(lastName, studentItem);
+        //             break;
+        //         case 2:
+        //             GPA = atof(studentItem);
+        //             break;
+        //         case 3:
+        //             studentType = studentItem[0];
+        //             break;
+        //         case 4:
+        //             if (studentType == 'I') {
+        //                 TOEFL = atoi(studentItem);
+        //             }
+        //             break;
+        //         default:
+        //             fprintf(outputFILE, "Error: invalid format");
+        //             exit(1);
+        //     }
+
+
+        // if(count < 4 || count > 5) {
+        //     fprintf(outputFILE, "Error: invalid format");
+        //     exit(1);
+        // }
+
+
+
+
 
 /**
  * Prints filtered student information to a specified output file.
@@ -258,16 +339,18 @@ void printStudents(char *output, int option, domesticStudent *domesticStudents, 
 
             for(int i = 0; i < domesticCount; i++) {
 
-                fprintf(outFile, "%s %s %.3f %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
-                    domesticStudents[i].GPA, domesticStudents[i].studentType);
+                fprintf(outFile, "%s %s %.3f %c %s %d %d\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
+                    domesticStudents[i].GPA, domesticStudents[i].studentType, domesticStudents[i].month,
+                    domesticStudents[i].day, domesticStudents[i].year);
             }
 
             fprintf(outFile, "International Students GPA:\n");
 
             for(int i = 0; i < domesticCount; i++) {
 
-                fprintf(outFile, "%s %s %.3f %c %d\n", internationalStudents[i].firstName, internationalStudents[i].lastName,
-                    internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
+                fprintf(outFile, "%s %s %.3f %c %d %s %d %d\n", internationalStudents[i].firstName, internationalStudents[i].lastName,
+                    internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL,
+                    internationalStudents[i].month, internationalStudents[i].day, internationalStudents[i].year);
 
             }
         } else {
