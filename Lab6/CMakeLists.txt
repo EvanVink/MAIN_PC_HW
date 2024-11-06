@@ -3,4 +3,6 @@ project(Lab6 C)
 
 set(CMAKE_C_STANDARD 23)
 
-add_executable(Lab6 main.c)
+add_executable(Lab6 main.c
+        Student.c
+        Student.h)

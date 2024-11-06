@@ -1,0 +1,8 @@
+Domestic Students GPA in descending order:
+John Den 4.100 D
+Mike Johnson 3.125 D
+Jack He 2.450 D
+International Students GPA in descending order:
+Alice Smith 4.200 I 80
+Mary Jackson 4.000 I 60
+Jane Zhang 3.800 I 120
