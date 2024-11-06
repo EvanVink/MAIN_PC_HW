@@ -33,46 +33,7 @@ int main(int argc, char *argv[]) {
     free(internationalStudents);
 
 
-    //nest the current for loop into a while loop to fgets until its not null to parse through it
 
-    // while(fgets(firstName, 100, file) != nullptr) {
-for (int k = 0; k < 6; k++) {
-    fgets(firstName, 100, file);
-
-    char *studentItem = strtok(firstName, " ");
-
-    while(studentItem != NULL) {
-        printf("%s\n", studentItem);
-
-        studentItem = strtok(NULL, " ");
-    }
-    // for(int i = 0; i <5; i++) {
-    //     if (studentItem == nullptr) break;
-    //     //add a counter for the for loop and change the for loop to while NOT NULL and if the count is 5
-    //     //then add it to a international student
-    //     //if its 4 then add it to domestic student
-    //     printf("%s\n", studentItem);
-    //
-    //     studentItem = strtok(nullptr, " ");
-    // }
-}
-    // }
-
-    // printf("%s\n", fgets(firstName, 100, file));
-    //
-    // printf("%s\n", fgets(firstName, 100, file));
-    // printf("%s\n", fgets(firstName, 100, file));
-    // printf("%s\n", fgets(firstName, 100, file));
-    // printf("%s\n", fgets(firstName, 100, file));
-    // printf("%s\n", fgets(firstName, 100, file));
-    //
-
-
-    // strcpy(studentD.firstName, "Evan");
-    // strcpy(studentD.lastName, "Vink");
-    // studentD.GPA = 3.920;
-
-    // array[amountOfStudents] = studentD;
 
     return 0;
 
