@@ -32,6 +32,9 @@ int main(int argc, char *argv[]) {
     free(domesticStudents);
     free(internationalStudents);
 
+
+
+
     return 0;
 
 }

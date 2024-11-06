@@ -5,7 +5,9 @@ public class main {
 
         Data data = new Data();
 
-        data.numberOfCountries();
+        data.startsWithA();
+        data.alphaOrder();
+
 
     }
 }
