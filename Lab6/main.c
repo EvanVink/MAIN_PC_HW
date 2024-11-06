@@ -49,10 +49,10 @@ for (int k = 0; k < 6; k++) {
 
     char *studentItem = strtok(firstName, " ");
 
-    while(studentItem != nullptr) {
+    while(studentItem != NULL) {
         printf("%s\n", studentItem);
 
-        studentItem = strtok(nullptr, " ");
+        studentItem = strtok(NULL, " ");
     }
     // for(int i = 0; i <5; i++) {
     //     if (studentItem == nullptr) break;
