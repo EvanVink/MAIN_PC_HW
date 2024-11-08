@@ -1,6 +1,6 @@
 Domestic Students GPA in descending order:
-Mike Johnson 3.125 D
-Jack He 2.450 D
+Mike Johnson 3.125 D Sep 2 1980
+Jack He 2.450 D Feb 3 1990
 International Students GPA in descending order:
-Mary Jackson 4.000 I 60
-Jane Zhang 3.800 I 120
+Mary Jackson 4.000 I 60 Feb 2 1990
+Jane Zhang 3.800 I 120 Mar 2 1970
