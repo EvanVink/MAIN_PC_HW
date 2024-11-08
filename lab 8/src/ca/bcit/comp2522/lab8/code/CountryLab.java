@@ -72,7 +72,8 @@ public class CountryLab {
                     .filter(country -> country.length() > 10)
                     .collect(ArrayList::new, List::add, List::addAll);
 
-            countriesLongerThanTen.addFirst("Country names longer than 10 characters:");
+            Files.writeString(dataFile, "Country names longer than 10 characters:\n",
+                    StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
             Files.write(dataFile, countriesLongerThanTen, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
