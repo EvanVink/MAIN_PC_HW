@@ -27,7 +27,9 @@ int main(int argc, char *argv[]) {
     }
 
 
-    merge_sort(students, 0, student_count - 1);
+    // merge_sort(students, 0, student_count - 1);
+
+    quick_sort(students, 0, student_count - 1);
 
     write_to_file(output_file, students, student_count, option);
 
