@@ -18,7 +18,7 @@ public class CountryLabTest {
         // Clean up before running each test
         if (Files.exists(dataFile)) Files.delete(dataFile);
         if (Files.exists(matchesDir)) Files.delete(matchesDir);
-        CountryLab.main(null); // Run the main method to generate output
+//        CountryLab.main(null); // Run the main method to generate output
     }
 
     @Test

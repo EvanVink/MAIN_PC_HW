@@ -16,6 +16,7 @@ typedef struct {
 
 int compare_students(const Student *a, const Student *b);
 void merge_sort(Student students[], int left, int right);
+void quick_sort(Student students[], int left, int right);
 float calculate_average(const Student *student);
 int read_students(const char *filename, Student students[], int max_students);
 void write_to_file(const char *filename, const Student students[], int count, int option);

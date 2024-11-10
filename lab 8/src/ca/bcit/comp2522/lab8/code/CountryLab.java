@@ -75,7 +75,7 @@ public class CountryLab {
             Files.writeString(dataFile, "Country names longer than 10 characters:\n",
                     StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
-            Files.write(dataFile, countriesLongerThanTen, StandardOpenOption.APPEND);
+            Files.write(dataFile, countriesLongerThanTen, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
         } catch(final IOException e) {
             System.out.println("Error writing country names longer than 10 char" + e.getMessage());
@@ -96,7 +96,7 @@ public class CountryLab {
 
             countriesShorterThanFive.addFirst("\n===Countries name shorter than 5 char===");
 
-            Files.write(dataFile, countriesShorterThanFive, StandardOpenOption.APPEND);
+            Files.write(dataFile, countriesShorterThanFive, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
         } catch(final IOException e) {
             System.out.println("Error writing country names shorter than 5 char" + e.getMessage());
@@ -391,47 +391,47 @@ public class CountryLab {
         }
     }
 
-    public static void main(Object o) {
-        final CountryLab data;
-
-        try {
-            data = new CountryLab();
-
-
-            data.longerThanTen();
-
-            data.shorterThanFive();
-
-            data.startsWithA();
-
-            data.endWIthLand();
-
-            data.containUnited();
-
-            data.alphaOrder();
-
-            data.uniqueFirstLetter();
-
-            data.numberOfCountries();
-
-            data.longestCountryName();
-
-            data.shortestCountryName();
-
-            data.namesInUpperCase();
-
-            data.moreThanOneWord();
-
-            data.mapCountriesName();
-
-            data.startWithZ();
-
-            data.longerThanThreeChar();
-
-        } catch (IOException e) {
-            System.out.println("error printing the method" + e.getMessage());
-        }
-    }
+//    public static void main(Object o) {
+//        final CountryLab data;
+//
+//        try {
+//            data = new CountryLab();
+//
+//
+//            data.longerThanTen();
+//
+//            data.shorterThanFive();
+//
+//            data.startsWithA();
+//
+//            data.endWIthLand();
+//
+//            data.containUnited();
+//
+//            data.alphaOrder();
+//
+//            data.uniqueFirstLetter();
+//
+//            data.numberOfCountries();
+//
+//            data.longestCountryName();
+//
+//            data.shortestCountryName();
+//
+//            data.namesInUpperCase();
+//
+//            data.moreThanOneWord();
+//
+//            data.mapCountriesName();
+//
+//            data.startWithZ();
+//
+//            data.longerThanThreeChar();
+//
+//        } catch (IOException e) {
+//            System.out.println("error printing the method" + e.getMessage());
+//        }
+//    }
 
 //    public static void main(final String[] args) {
 //

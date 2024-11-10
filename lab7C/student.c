@@ -79,6 +79,40 @@ void merge_sort(Student students[], int left, int right) {
     }
 }
 
+
+int partition(Student students[], int left, int right) {
+    Student pivot = students[right];
+    int i = left - 1;
+
+    for(int j = left; j < right; j++) {
+        if(compare_students(&students[j], &pivot) <= 0) {
+            i++;
+
+            Student temp = students[i];
+            students[i] = students[j];
+            students[j] = temp;
+        }
+    }
+
+
+    Student temp = students[i + 1];
+    students[i + 1] = students[right];
+    students[right] = temp;
+
+    return i + 1;
+}
+
+void quick_sort(Student students[], int left, int right) {
+    if(left < right) {
+        int pi = partition(students, left, right);
+        quick_sort(students, left, pi - 1);
+        quick_sort(students, pi + 1, right);
+    }
+}
+
+
+
+
 float calculate_average(const Student *student) {
     return (student->midterm_grade + student->final_grade) / 2;
 }
@@ -127,7 +161,7 @@ void write_to_file(const char *filename, const Student students[], int count, in
         }
 
         if(write) {
-            fprintf(file, "%s %s %s %d %d %.2f",
+            fprintf(file, "%s %s %s %d %d %.2f\n",
                 students[i].last_name, students[i].first_name,
                 students[i].student_number,
                 students[i].midterm_grade, students[i].final_grade, avg);

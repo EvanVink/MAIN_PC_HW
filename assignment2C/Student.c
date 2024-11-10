@@ -98,16 +98,18 @@ void rFile(const char *inputFile, char *output, domesticStudent **domesticStuden
         char studentType = '\0';
         int TOEFL = 0;
         int day = 0;
-        char month[11];
+        char date[11];
+        char month[4];
         int year = 0;
 
 
-        int lineScaned = sscanf(line, "%s %s %s %f %c %d", firstName, lastName, month, &GPA, &studentType, &TOEFL);
+        int lineScaned = sscanf(line, "%s %s %s %f %c %d", firstName, lastName, date, &GPA, &studentType, &TOEFL);
+        int secondScaned = sscanf(date, "%3s-%d-%d", month, &day, &year);
 
 
-        printf("%s %s %s %.2f %c %d\n", firstName, lastName, month, GPA, studentType, TOEFL);
+        printf("%s %s %s %.2f %c %d\n", firstName, lastName, date, GPA, studentType, TOEFL);
 
-
+        printf("%s %d %d\n", month, day, year);
 
 
 
@@ -319,8 +321,9 @@ void printStudents(char *output, int option, domesticStudent *domesticStudents, 
 
             for(int i = domesticCount - 1; i >= 0; i--) {
 
-                fprintf(outFile, "%s %s %.3f %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
-                    domesticStudents[i].GPA, domesticStudents[i].studentType);
+                fprintf(outFile, "%s %s %.3f %c %s %d %d\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
+                    domesticStudents[i].GPA, domesticStudents[i].studentType, domesticStudents[i].month,
+                    domesticStudents[i].day, domesticStudents[i].year);
 
             }
 
@@ -328,8 +331,9 @@ void printStudents(char *output, int option, domesticStudent *domesticStudents, 
 
             for(int i = internationalCount - 1; i >= 0; i--) {
 
-                fprintf(outFile, "%s %s %.3f %c %d\n", internationalStudents[i].firstName, internationalStudents[i].lastName,
-                    internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
+                fprintf(outFile, "%s %s %.3f %c %d %s %d %d\n", internationalStudents[i].firstName, internationalStudents[i].lastName,
+                    internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL,
+                    internationalStudents[i].month, internationalStudents[i].day, internationalStudents[i].year);
 
             }
 
