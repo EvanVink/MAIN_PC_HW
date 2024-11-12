@@ -221,6 +221,298 @@ void rFile(const char *inputFile, char *output, domesticStudent **domesticStuden
         //     exit(1);
         // }
 
+int compareDomestic(const domesticStudent *a, const domesticStudent *b) {
+
+    int cmp;
+
+    if(a->year != b->year) {
+        return a->year - b->year;
+    }
+
+
+    int aMonth;
+    switch(a->month) {
+        case "Jan":
+            aMonth = 1;
+        break;
+        case "Feb":
+            aMonth = 2;
+        break;
+        case "Mar":
+            aMonth = 3;
+        break;
+        case "Apr":
+            aMonth = 4;
+        break;
+        case "May":
+            aMonth = 5;
+        break;
+        case "Jun":
+            aMonth = 6;
+        break;
+        case "Jul":
+            aMonth = 7;
+        break;
+        case "Aug":
+            aMonth = 8;
+        break;
+        case "Sep":
+            aMonth = 9;
+        break;
+        case "Oct":
+            aMonth = 10;
+        break;
+        case "Nov":
+            aMonth = 11;
+        break;
+        case "Dec":
+            aMonth = 12;
+        break;
+        default:
+            aMonth = -1;
+    }
+
+    int bMonth;
+    switch(b->month) {
+        case "Jan":
+            bMonth = 1;
+        break;
+        case "Feb":
+            bMonth = 2;
+        break;
+        case "Mar":
+            bMonth = 3;
+        break;
+        case "Apr":
+            bMonth = 4;
+        break;
+        case "May":
+            bMonth = 5;
+        break;
+        case "Jun":
+            bMonth = 6;
+        break;
+        case "Jul":
+            bMonth = 7;
+        break;
+        case "Aug":
+            bMonth = 8;
+        break;
+        case "Sep":
+            bMonth = 9;
+        break;
+        case "Oct":
+            bMonth = 10;
+        break;
+        case "Nov":
+            bMonth = 11;
+        break;
+        case "Dec":
+            bMonth = 12;
+        break;
+        default:
+            bMonth = -1;
+    }
+
+
+
+
+    if(aMonth != bMonth) {
+        return aMonth - bMonth;
+    }
+
+
+    if(a->day != b->day) {
+        return a->day - b->day;
+    }
+
+    cmp = strcmp(a->lastName, b->lastName);
+    if(cmp != 0) {
+        return cmp;
+    }
+
+    cmp = strcmp(a->firstName, b->firstName);
+    if(cmp != 0) {
+        return cmp;
+    }
+
+    if(a->GPA > b->GPA) {
+        return 1;
+    } else if(a->GPA < b->GPA) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
+
+
+int compareInternational(const internationalStudent *a, const internationalStudent *b) {
+
+    int cmp;
+
+    if(a->year != b->year) {
+        return a->year - b->year;
+    }
+
+
+    int aMonth;
+    switch(a->month) {
+        case "Jan":
+            aMonth = 1;
+        break;
+        case "Feb":
+            aMonth = 2;
+        break;
+        case "Mar":
+            aMonth = 3;
+        break;
+        case "Apr":
+            aMonth = 4;
+        break;
+        case "May":
+            aMonth = 5;
+        break;
+        case "Jun":
+            aMonth = 6;
+        break;
+        case "Jul":
+            aMonth = 7;
+        break;
+        case "Aug":
+            aMonth = 8;
+        break;
+        case "Sep":
+            aMonth = 9;
+        break;
+        case "Oct":
+            aMonth = 10;
+        break;
+        case "Nov":
+            aMonth = 11;
+        break;
+        case "Dec":
+            aMonth = 12;
+        break;
+        default:
+            aMonth = -1;
+    }
+
+    int bMonth;
+    switch(b->month) {
+        case "Jan":
+            bMonth = 1;
+        break;
+        case "Feb":
+            bMonth = 2;
+        break;
+        case "Mar":
+            bMonth = 3;
+        break;
+        case "Apr":
+            bMonth = 4;
+        break;
+        case "May":
+            bMonth = 5;
+        break;
+        case "Jun":
+            bMonth = 6;
+        break;
+        case "Jul":
+            bMonth = 7;
+        break;
+        case "Aug":
+            bMonth = 8;
+        break;
+        case "Sep":
+            bMonth = 9;
+        break;
+        case "Oct":
+            bMonth = 10;
+        break;
+        case "Nov":
+            bMonth = 11;
+        break;
+        case "Dec":
+            bMonth = 12;
+        break;
+        default:
+            bMonth = -1;
+    }
+
+
+
+
+    if(aMonth != bMonth) {
+        return aMonth - bMonth;
+    }
+
+
+    if(a->day != b->day) {
+        return a->day - b->day;
+    }
+
+    cmp = strcmp(a->lastName, b->lastName);
+    if(cmp != 0) {
+        return cmp;
+    }
+
+    cmp = strcmp(a->firstName, b->firstName);
+    if(cmp != 0) {
+        return cmp;
+    }
+
+    if(a->GPA > b->GPA) {
+        return 1;
+    } else if(a->GPA < b->GPA) {
+        return -1;
+    }
+
+    return a->TOEFL - b->TOEFL;
+
+}
+
+
+
+
+void merge(domesticStudent dStudents[], internationalStudent iStudents[], int left, int mid, int right){
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    if(dStudents == NULL) {
+        internationalStudent *L = (internationalStudent *)malloc(n1 * sizeof(internationalStudent));
+        internationalStudent *R = (internationalStudent *)malloc(n2 * sizeof(internationalStudent));
+
+        for(int i = 0; i < n1; i++) {
+            L[i] = iStudents[left + 1];
+        }
+
+        for(int j = 0; j < n2; j++) {
+            R[j] = iStudents[mid + 1 + j];
+        }
+
+        int i = 0, j = 0, k = left;
+        while(i < n1 && j < n2) {
+            if(compareInternational(&L[i], &R[j]) <= 0) {
+                iStudents[k++] = L[i++];
+            } else {
+                iStudents[k++] = R[j++];
+            }
+        }
+
+        while(i < n1) {
+
+        }
+
+    }
+
+
+
+}
+
+void merge_sort() {
+
+}
+
 
 
 

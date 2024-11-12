@@ -62,6 +62,8 @@ CREATE TABLE Mission (
 
 CREATE TABLE Weapon (
     weapon_id INTEGER NOT NULL,
+    weapon_name CHAR(30) NOT NULL,
+    weapon_description VARCHAR(200),
     weapon_type CHAR(30) NOT NULL,
     rarity CHAR(30) NOT NULL,
     damage FLOAT DEFAULT 0,
@@ -69,9 +71,16 @@ CREATE TABLE Weapon (
     PRIMARY KEY (weapon_id)
 );
 
+
+
+
+SELECT * FROM Weapon;
+
 CREATE TABLE Gear (
     gear_id INTEGER NOT NULL,
+    gear_name CHAR(30) NOT NULL,
     gear_type CHAR(30) NOT NULL,
+    gear_description VARCHAR(200) NOT NULL,
     rarity CHAR(30) NOT NULL,
     bonus_health INTEGER DEFAULT 0,
     bonus_armour INTEGER DEFAULT 0,
@@ -80,7 +89,8 @@ CREATE TABLE Gear (
 
 CREATE TABLE Item (
     item_id INTEGER NOT NULL,
-    item_description VARCHAR(100) NOT NULL,
+    item_name CHAR(30) NOT NULL,
+    item_description VARCHAR(200) NOT NULL,
     item_type CHAR(30) NOT NULL,
     price FLOAT DEFAULT 0,
     rarity CHAR(30) DEFAULT NULL,
@@ -102,10 +112,9 @@ CREATE TABLE Purchases (
 );
 
 CREATE TABLE PlatformOwns (
-    platform_owned VARCHAR(30) NOT NULL,
     platform_id INTEGER NOT NULL,
     player_id INTEGER NOT NULL,
-    PRIMARY KEY (platform_owned, platform_id, player_id),
+    PRIMARY KEY (platform_id, player_id),
     FOREIGN KEY (platform_id) REFERENCES Platform(platform_id),
     FOREIGN KEY (player_id) REFERENCES Player(player_id)
 );
@@ -130,29 +139,39 @@ CREATE TABLE Ranks_on (
     FOREIGN KEY (player_id) REFERENCES Player(player_id)
 );
 
+CREATE TABLE Achievements (
+	achievement_id INTEGER NOT NULL,
+    player_id INTEGER NOT NULL,
+    achievement_description VARCHAR(200) NOT NULL,
+    date_achieved VARCHAR(11),
+    PRIMARY KEY (achievement_id, player_id),
+    FOREIGN KEY (player_id) REFERENCES Player(player_id)
+);
+
 CREATE TABLE Achieves (
     player_id INTEGER NOT NULL,
     achievement_id INTEGER NOT NULL,
     date_earned VARCHAR(11) DEFAULT NULL,
     PRIMARY KEY (player_id, achievement_id),
     FOREIGN KEY (player_id) REFERENCES Player(player_id),
-    FOREIGN KEY (achievement_id) REFERENCES Achievement(achievement_id)
+    FOREIGN KEY (achievement_id) REFERENCES Achievements(achievement_id)
 );
 
 CREATE TABLE Incorporates (
     map_id INTEGER NOT NULL,
+    player_id INTEGER NOT NULL,
     character_id INTEGER NOT NULL,
-    position INTEGER DEFAULT NULL,
-    achievement_id INTEGER DEFAULT NULL,
-    mission_id INTEGER DEFAULT NULL,
+    position INTEGER NOT NULL,
+    achievement_id INTEGER NOT NULL,
+    mission_id INTEGER NOT NULL,
     game_id INTEGER NOT NULL,
     genre CHAR(30) NOT NULL,
     data_size FLOAT DEFAULT 0,
-    PRIMARY KEY (map_id, character_id, position, achievement_id, mission_id),
+    PRIMARY KEY (map_id, character_id, player_id, position, achievement_id, mission_id),
     FOREIGN KEY (map_id) REFERENCES Map(map_id),
     FOREIGN KEY (character_id) REFERENCES Characters(character_id),
-    FOREIGN KEY (position) REFERENCES Leaderboard(position),
-    FOREIGN KEY (achievement_id) REFERENCES Achievement(achievement_id),
+    FOREIGN KEY (position, player_id) REFERENCES Leaderboard(position, player_id),
+    FOREIGN KEY (achievement_id, player_id) REFERENCES Achievements(achievement_id, player_id),
     FOREIGN KEY (mission_id) REFERENCES Mission(mission_id),
     FOREIGN KEY (game_id) REFERENCES Game(game_id)
 );
@@ -167,12 +186,21 @@ CREATE TABLE Provided_on (
     FOREIGN KEY (company_id) REFERENCES Company(company_id)
 );
 
+INSERT INTO Provided_on
+VALUES (4, 5, 88);
+
+
+SELECT * FROM Provided_on;
+
+
 CREATE TABLE Platform (
     platform_id INTEGER NOT NULL,
     platform_name VARCHAR(50) NOT NULL,
     price_cad FLOAT DEFAULT 0,
     PRIMARY KEY (platform_id)
 );
+
+SELECT * FROM Platform;
 
 CREATE TABLE Review (
     review_id INTEGER NOT NULL,
@@ -184,6 +212,13 @@ CREATE TABLE Review (
     FOREIGN KEY (game_id) REFERENCES Game(game_id)
 );
 
+INSERT INTO Review
+VALUES (4, 10, 'Evan Vink', 4.3, 'Fun game but some Bugs');
+
+
+
+SELECT * FROM Review;
+
 CREATE TABLE Company (
     company_id INTEGER NOT NULL,
     company_name VARCHAR(50) NOT NULL,
@@ -191,12 +226,15 @@ CREATE TABLE Company (
 );
 
 CREATE TABLE Lead_team (
-    lead_id INTEGER NOT NULL,
+    lead_id INTEGER NOT NULL UNIQUE,
     employee_id INTEGER NOT NULL,
     office_number INTEGER DEFAULT NULL,
     PRIMARY KEY (lead_id, employee_id),
     FOREIGN KEY (employee_id) REFERENCES Employee(employee_id)
 );
+
+
+SELECT * FROM Lead_team;
 
 CREATE TABLE Developer (
     employee_id INTEGER NOT NULL,
@@ -216,23 +254,28 @@ CREATE TABLE Employee (
     FOREIGN KEY (company_id) REFERENCES Company(company_id)
 );
 
+SELECT * FROM Employee;
+
+
 CREATE TABLE Team (
     lead_id INTEGER NOT NULL,
     team_id INTEGER NOT NULL,
+    employee_id INTEGER NOT NULL,
     team_size INTEGER DEFAULT 0,
     start_date VARCHAR(11) DEFAULT NULL,
     end_date VARCHAR(11) DEFAULT NULL,
     status CHAR(30) DEFAULT 'Active',
     PRIMARY KEY (lead_id, team_id),
-    FOREIGN KEY (lead_id) REFERENCES Lead_team(lead_id)
+    FOREIGN KEY (lead_id, employee_id) REFERENCES Lead_team(lead_id, employee_id)
 );
 
 CREATE TABLE Team_Location (
     lead_id INTEGER NOT NULL,
     team_id INTEGER NOT NULL,
+    employee_id INTEGER NOT NULL,
     location VARCHAR(100) NOT NULL,
     PRIMARY KEY (lead_id, team_id, location),
-    FOREIGN KEY (lead_id) REFERENCES Lead_team(lead_id),
+    FOREIGN KEY (lead_id, employee_id) REFERENCES Lead_team(lead_id, employee_id),
     FOREIGN KEY (team_id) REFERENCES Team(team_id)
 );
 
@@ -246,10 +289,65 @@ INSERT INTO Friend (player_id, friend_id)
 VALUES (10, 12);
 
 INSERT INTO Game
-VALUES (1, RainbowSix, 111, 2015, 70);
+VALUES (1, 'RainbowSix', 99, 2015, 70);
 
-INSERT INTO Leaderboad
-VALUES (1, 1, 100);
+INSERT INTO Game
+VALUES (5, 'Need for Speed', 88, 2015, 50);
+
+INSERT INTO Game
+VALUES (3, 'World of Warcraft', 77, 2004, 18);
+
+INSERT INTO Game
+VALUES (10, 'OverWatch', 77, 2016, 15); 
+
+INSERT INTO Game
+VALUES (9, 'Call of Duty Black Ops 6', 66, 2024, 100);
+
+SELECT g.title, r.rating, r.review_description
+FROM Game g
+JOIN Review r ON g.game_id = r.game_id
+WHERE r.rating > 4.0 AND g.price_cad < 21;
+
+
+
+INSERT INTO Company
+VALUES (99, 'Ubisoft');
+INSERT INTO Company
+VALUES (88, 'EA Games');
+INSERT INTO Company
+VALUES (77, 'Blizzard');
+INSERT INTO Company
+VALUES (66, 'Treyarch');
+
+
+SELECT p.platform_name
+FROM Game g
+JOIN Provided_on pro ON g.game_id = pro.game_id
+JOIN Platform p ON pro.platform_id = p.platform_id
+WHERE g.title = 'RainbowSix';
+
+SELECT p.platform_name
+From Player player
+JOIN Friend f ON player.player_id = f.player_id
+JOIN Player fp ON f.friend_id = fp.player_id
+JOIN PlatformOwns po ON fp.player_id = po.player_id
+JOIN Platform p ON po.platform_id = p.platform_id
+WHERE f.friend_id = 12;
+
+
+
+
+SELECT * FROM PlatformOwns;
+SELECT * FROM Provided_on;
+SELECT * FROM Platform;
+Select * from Player;
+Select * from Friend;
+Select * from Game;
+Select * from Company;
+Select * from Leaderboard;
+
+INSERT INTO Leaderboard
+VALUES (1, 12, 100);
 
 INSERT INTO Characters
 VALUES (1, 1, 1, 1, 1, 1, 1);

@@ -8,7 +8,7 @@
 
 
 
-
+//compares the students by last name, first name, student number, midterm grade then final grade
 int compare_students(const Student *a, const Student *b) {
 
     int cmp = strcmp(a->last_name, b->last_name);
@@ -32,6 +32,8 @@ int compare_students(const Student *a, const Student *b) {
 
     return a->final_grade - b->final_grade;
 }
+
+
 
 void merge(Student students[], int left, int mid, int right) {
     int n1 = mid - left + 1;
@@ -69,7 +71,7 @@ void merge(Student students[], int left, int mid, int right) {
 
 }
 
-
+//sorts each student using merge sorting
 void merge_sort(Student students[], int left, int right) {
     if(left < right) {
         int mid = left + (right - left) / 2;
@@ -80,7 +82,7 @@ void merge_sort(Student students[], int left, int right) {
 }
 
 
-int partition(Student students[], int left, int right) {
+int splitting(Student students[], int left, int right) {
     Student pivot = students[right];
     int i = left - 1;
 
@@ -102,22 +104,23 @@ int partition(Student students[], int left, int right) {
     return i + 1;
 }
 
+//sorts each student using quick sort
 void quick_sort(Student students[], int left, int right) {
     if(left < right) {
-        int pi = partition(students, left, right);
-        quick_sort(students, left, pi - 1);
-        quick_sort(students, pi + 1, right);
+        const int split = splitting(students, left, right);
+        quick_sort(students, left, split - 1);
+        quick_sort(students, split + 1, right);
     }
 }
 
 
 
-
+//calculates the average between the student's midterm and final grade
 float calculate_average(const Student *student) {
     return (student->midterm_grade + student->final_grade) / 2;
 }
 
-
+//reads each student in the file
 int read_students(const char *filename, Student students[], int max_students) {
     FILE *file = fopen(filename, "r");
     if(!file) {
@@ -140,7 +143,7 @@ int read_students(const char *filename, Student students[], int max_students) {
     return count;
 }
 
-
+//writes the students and their data to a file
 void write_to_file(const char *filename, const Student students[], int count, int option) {
     FILE *file = fopen(filename, "w");
     if(!file) {
