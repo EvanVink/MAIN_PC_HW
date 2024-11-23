@@ -1,0 +1,7 @@
+Jane Zhang Mar-2-1970 3.800 I 120
+Diana Green Oct-11-1978 4.200 I 50
+Mary Jackson Feb-2-1990 4.000 I 60
+Henry Yellow Apr-30-1990 2.600 I 100
+Bob Brown Jan-5-1995 2.900 I 80
+Jackie Gray Nov-22-1995 3.100 I 110
+Frank Blue Jun-25-1997 3.000 I 90

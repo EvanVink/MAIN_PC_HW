@@ -103,13 +103,11 @@ void rFile(const char *inputFile, char *output, domesticStudent **domesticStuden
         int year = 0;
 
 
-        int lineScaned = sscanf(line, "%s %s %s %f %c %d", firstName, lastName, date, &GPA, &studentType, &TOEFL);
-        int secondScaned = sscanf(date, "%3s-%d-%d", month, &day, &year);
+        sscanf(line, "%s %s %s %f %c %d", firstName, lastName, date, &GPA, &studentType, &TOEFL);
+        sscanf(date, "%3s-%d-%d", month, &day, &year);
 
 
-        printf("%s %s %s %.2f %c %d\n", firstName, lastName, date, GPA, studentType, TOEFL);
 
-        printf("%s %d %d\n", month, day, year);
 
 
 
@@ -221,8 +219,7 @@ void rFile(const char *inputFile, char *output, domesticStudent **domesticStuden
         //     exit(1);
         // }
 
-int compareDomestic(const domesticStudent *a, const domesticStudent *b) {
-
+int compareMix(const internationalStudent *a, const domesticStudent *b) {
     int cmp;
 
     if(a->year != b->year) {
@@ -231,88 +228,32 @@ int compareDomestic(const domesticStudent *a, const domesticStudent *b) {
 
 
     int aMonth;
-    switch(a->month) {
-        case "Jan":
-            aMonth = 1;
-        break;
-        case "Feb":
-            aMonth = 2;
-        break;
-        case "Mar":
-            aMonth = 3;
-        break;
-        case "Apr":
-            aMonth = 4;
-        break;
-        case "May":
-            aMonth = 5;
-        break;
-        case "Jun":
-            aMonth = 6;
-        break;
-        case "Jul":
-            aMonth = 7;
-        break;
-        case "Aug":
-            aMonth = 8;
-        break;
-        case "Sep":
-            aMonth = 9;
-        break;
-        case "Oct":
-            aMonth = 10;
-        break;
-        case "Nov":
-            aMonth = 11;
-        break;
-        case "Dec":
-            aMonth = 12;
-        break;
-        default:
-            aMonth = -1;
-    }
+    if (strcmp(a->month, "Jan") == 0) aMonth = 1;
+    if (strcmp(a->month, "Feb") == 0) aMonth = 2;
+    if (strcmp(a->month, "Mar") == 0) aMonth = 3;
+    if (strcmp(a->month, "Apr") == 0) aMonth = 4;
+    if (strcmp(a->month, "May") == 0) aMonth = 5;
+    if (strcmp(a->month, "Jun") == 0) aMonth = 6;
+    if (strcmp(a->month, "Jul") == 0) aMonth = 7;
+    if (strcmp(a->month, "Aug") == 0) aMonth = 8;
+    if (strcmp(a->month, "Sep") == 0) aMonth = 9;
+    if (strcmp(a->month, "Oct") == 0) aMonth = 10;
+    if (strcmp(a->month, "Nov") == 0) aMonth = 11;
+    if (strcmp(a->month, "Dec") == 0) aMonth = 12;
 
     int bMonth;
-    switch(b->month) {
-        case "Jan":
-            bMonth = 1;
-        break;
-        case "Feb":
-            bMonth = 2;
-        break;
-        case "Mar":
-            bMonth = 3;
-        break;
-        case "Apr":
-            bMonth = 4;
-        break;
-        case "May":
-            bMonth = 5;
-        break;
-        case "Jun":
-            bMonth = 6;
-        break;
-        case "Jul":
-            bMonth = 7;
-        break;
-        case "Aug":
-            bMonth = 8;
-        break;
-        case "Sep":
-            bMonth = 9;
-        break;
-        case "Oct":
-            bMonth = 10;
-        break;
-        case "Nov":
-            bMonth = 11;
-        break;
-        case "Dec":
-            bMonth = 12;
-        break;
-        default:
-            bMonth = -1;
-    }
+    if (strcmp(b->month, "Jan") == 0) bMonth = 1;
+    if (strcmp(b->month, "Feb") == 0) bMonth = 2;
+    if (strcmp(b->month, "Mar") == 0) bMonth = 3;
+    if (strcmp(b->month, "Apr") == 0) bMonth = 4;
+    if (strcmp(b->month, "May") == 0) bMonth = 5;
+    if (strcmp(b->month, "Jun") == 0) bMonth = 6;
+    if (strcmp(b->month, "Jul") == 0) bMonth = 7;
+    if (strcmp(b->month, "Aug") == 0) bMonth = 8;
+    if (strcmp(b->month, "Sep") == 0) bMonth = 9;
+    if (strcmp(b->month, "Oct") == 0) bMonth = 10;
+    if (strcmp(b->month, "Nov") == 0) bMonth = 11;
+    if (strcmp(b->month, "Dec") == 0) bMonth = 12;
 
 
 
@@ -338,11 +279,79 @@ int compareDomestic(const domesticStudent *a, const domesticStudent *b) {
 
     if(a->GPA > b->GPA) {
         return 1;
-    } else if(a->GPA < b->GPA) {
-        return -1;
-    } else {
-        return 0;
     }
+    if(a->GPA < b->GPA) {
+        return -1;
+    }
+    return 0;
+}
+
+int compareDomestic(const domesticStudent *a, const domesticStudent *b) {
+
+    int cmp;
+
+    if(a->year != b->year) {
+        return a->year - b->year;
+    }
+
+
+    int aMonth;
+    if (strcmp(a->month, "Jan") == 0) aMonth = 1;
+    if (strcmp(a->month, "Feb") == 0) aMonth = 2;
+    if (strcmp(a->month, "Mar") == 0) aMonth = 3;
+    if (strcmp(a->month, "Apr") == 0) aMonth = 4;
+    if (strcmp(a->month, "May") == 0) aMonth = 5;
+    if (strcmp(a->month, "Jun") == 0) aMonth = 6;
+    if (strcmp(a->month, "Jul") == 0) aMonth = 7;
+    if (strcmp(a->month, "Aug") == 0) aMonth = 8;
+    if (strcmp(a->month, "Sep") == 0) aMonth = 9;
+    if (strcmp(a->month, "Oct") == 0) aMonth = 10;
+    if (strcmp(a->month, "Nov") == 0) aMonth = 11;
+    if (strcmp(a->month, "Dec") == 0) aMonth = 12;
+
+    int bMonth;
+    if (strcmp(b->month, "Jan") == 0) bMonth = 1;
+    if (strcmp(b->month, "Feb") == 0) bMonth = 2;
+    if (strcmp(b->month, "Mar") == 0) bMonth = 3;
+    if (strcmp(b->month, "Apr") == 0) bMonth = 4;
+    if (strcmp(b->month, "May") == 0) bMonth = 5;
+    if (strcmp(b->month, "Jun") == 0) bMonth = 6;
+    if (strcmp(b->month, "Jul") == 0) bMonth = 7;
+    if (strcmp(b->month, "Aug") == 0) bMonth = 8;
+    if (strcmp(b->month, "Sep") == 0) bMonth = 9;
+    if (strcmp(b->month, "Oct") == 0) bMonth = 10;
+    if (strcmp(b->month, "Nov") == 0) bMonth = 11;
+    if (strcmp(b->month, "Dec") == 0) bMonth = 12;
+
+
+
+
+    if(aMonth != bMonth) {
+        return aMonth - bMonth;
+    }
+
+
+    if(a->day != b->day) {
+        return a->day - b->day;
+    }
+
+    cmp = strcmp(a->lastName, b->lastName);
+    if(cmp != 0) {
+        return cmp;
+    }
+
+    cmp = strcmp(a->firstName, b->firstName);
+    if(cmp != 0) {
+        return cmp;
+    }
+
+    if(a->GPA > b->GPA) {
+        return 1;
+    }
+    if(a->GPA < b->GPA) {
+        return -1;
+    }
+    return 0;
 }
 
 
@@ -356,88 +365,32 @@ int compareInternational(const internationalStudent *a, const internationalStude
 
 
     int aMonth;
-    switch(a->month) {
-        case "Jan":
-            aMonth = 1;
-        break;
-        case "Feb":
-            aMonth = 2;
-        break;
-        case "Mar":
-            aMonth = 3;
-        break;
-        case "Apr":
-            aMonth = 4;
-        break;
-        case "May":
-            aMonth = 5;
-        break;
-        case "Jun":
-            aMonth = 6;
-        break;
-        case "Jul":
-            aMonth = 7;
-        break;
-        case "Aug":
-            aMonth = 8;
-        break;
-        case "Sep":
-            aMonth = 9;
-        break;
-        case "Oct":
-            aMonth = 10;
-        break;
-        case "Nov":
-            aMonth = 11;
-        break;
-        case "Dec":
-            aMonth = 12;
-        break;
-        default:
-            aMonth = -1;
-    }
+    if (strcmp(a->month, "Jan") == 0) aMonth = 1;
+    if (strcmp(a->month, "Feb") == 0) aMonth = 2;
+    if (strcmp(a->month, "Mar") == 0) aMonth = 3;
+    if (strcmp(a->month, "Apr") == 0) aMonth = 4;
+    if (strcmp(a->month, "May") == 0) aMonth = 5;
+    if (strcmp(a->month, "Jun") == 0) aMonth = 6;
+    if (strcmp(a->month, "Jul") == 0) aMonth = 7;
+    if (strcmp(a->month, "Aug") == 0) aMonth = 8;
+    if (strcmp(a->month, "Sep") == 0) aMonth = 9;
+    if (strcmp(a->month, "Oct") == 0) aMonth = 10;
+    if (strcmp(a->month, "Nov") == 0) aMonth = 11;
+    if (strcmp(a->month, "Dec") == 0) aMonth = 12;
 
     int bMonth;
-    switch(b->month) {
-        case "Jan":
-            bMonth = 1;
-        break;
-        case "Feb":
-            bMonth = 2;
-        break;
-        case "Mar":
-            bMonth = 3;
-        break;
-        case "Apr":
-            bMonth = 4;
-        break;
-        case "May":
-            bMonth = 5;
-        break;
-        case "Jun":
-            bMonth = 6;
-        break;
-        case "Jul":
-            bMonth = 7;
-        break;
-        case "Aug":
-            bMonth = 8;
-        break;
-        case "Sep":
-            bMonth = 9;
-        break;
-        case "Oct":
-            bMonth = 10;
-        break;
-        case "Nov":
-            bMonth = 11;
-        break;
-        case "Dec":
-            bMonth = 12;
-        break;
-        default:
-            bMonth = -1;
-    }
+    if (strcmp(b->month, "Jan") == 0) bMonth = 1;
+    if (strcmp(b->month, "Feb") == 0) bMonth = 2;
+    if (strcmp(b->month, "Mar") == 0) bMonth = 3;
+    if (strcmp(b->month, "Apr") == 0) bMonth = 4;
+    if (strcmp(b->month, "May") == 0) bMonth = 5;
+    if (strcmp(b->month, "Jun") == 0) bMonth = 6;
+    if (strcmp(b->month, "Jul") == 0) bMonth = 7;
+    if (strcmp(b->month, "Aug") == 0) bMonth = 8;
+    if (strcmp(b->month, "Sep") == 0) bMonth = 9;
+    if (strcmp(b->month, "Oct") == 0) bMonth = 10;
+    if (strcmp(b->month, "Nov") == 0) bMonth = 11;
+    if (strcmp(b->month, "Dec") == 0) bMonth = 12;
 
 
 
@@ -463,7 +416,8 @@ int compareInternational(const internationalStudent *a, const internationalStude
 
     if(a->GPA > b->GPA) {
         return 1;
-    } else if(a->GPA < b->GPA) {
+    }
+    if(a->GPA < b->GPA) {
         return -1;
     }
 
@@ -471,19 +425,52 @@ int compareInternational(const internationalStudent *a, const internationalStude
 
 }
 
+void merge_domestic(domesticStudent dStudents[], int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    domesticStudent *L = (domesticStudent *)malloc(n1 * sizeof(domesticStudent));
+    domesticStudent *R = (domesticStudent *)malloc(n2 * sizeof(domesticStudent));
+
+    for(int i = 0; i < n1; i++) {
+        L[i] = dStudents[left + i];
+    }
+
+    for(int j = 0; j < n2; j++) {
+        R[j] = dStudents[mid + 1 + j];
+    }
+
+    int i = 0, j = 0, k = left;
+    while(i < n1 && j < n2) {
+        if(compareDomestic(&L[i], &R[j]) <= 0) {
+            dStudents[k++] = L[i++];
+        } else {
+            dStudents[k++] = R[j++];
+        }
+    }
+
+    while(i < n1) {
+        dStudents[k++] = L[i++];
+    }
+
+    while(j < n2) {
+        dStudents[k++] = R[j++];
+    }
+
+    free(L);
+    free(R);
 
 
 
-void merge(domesticStudent dStudents[], internationalStudent iStudents[], int left, int mid, int right){
+}
+void merge_international(internationalStudent iStudents[], int left, int mid, int right){
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
-    if(dStudents == NULL) {
         internationalStudent *L = (internationalStudent *)malloc(n1 * sizeof(internationalStudent));
         internationalStudent *R = (internationalStudent *)malloc(n2 * sizeof(internationalStudent));
 
         for(int i = 0; i < n1; i++) {
-            L[i] = iStudents[left + 1];
+            L[i] = iStudents[left + i];
         }
 
         for(int j = 0; j < n2; j++) {
@@ -500,21 +487,36 @@ void merge(domesticStudent dStudents[], internationalStudent iStudents[], int le
         }
 
         while(i < n1) {
-
+            iStudents[k++] = L[i++];
         }
 
+        while(j < n2) {
+            iStudents[k++] = R[j++];
+        }
+
+        free(L);
+        free(R);
+
+
+}
+
+void merge_sort_international(internationalStudent iStudents[], int left, int right) {
+        if(left < right) {
+            int mid = left + (right - left) / 2;
+            merge_sort_international(iStudents, left, mid);
+            merge_sort_international(iStudents, mid + 1, right);
+            merge_international(iStudents, left, mid, right);
+        }
+}
+
+void merge_sort_domestic(domesticStudent dStudents[], int left, int right) {
+    if(left < right) {
+        int mid = left + (right - left) / 2;
+        merge_sort_domestic(dStudents, left, mid);
+        merge_sort_domestic(dStudents, mid + 1, right);
+        merge_domestic(dStudents, left, mid, right);
     }
-
-
-
 }
-
-void merge_sort() {
-
-}
-
-
-
 
 
 /**
@@ -529,132 +531,55 @@ void merge_sort() {
  * @param internationalCount Number of international students in the array.
  * @param sort
  */
-void printStudents(char *output, int option, domesticStudent *domesticStudents, int domesticCount, internationalStudent *internationalStudents, int internationalCount, int sort) {
+void printStudents(char *output, int option, domesticStudent *domesticStudents, int domesticCount, internationalStudent *internationalStudents, int internationalCount) {
 
     FILE *outFile = fopen(output, "w");
 
     switch(option) {
         case 1:
             for(int i = 0; i < domesticCount; i++) {
-                if(domesticStudents[i].GPA > 3.9) {
-
-                    fprintf(outFile, "Domestic Students with a GPA of above 3.9:\n%s %s %.3f %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
-                        domesticStudents[i].GPA, domesticStudents[i].studentType);
-
-                }
+                fprintf(outFile, "%s %s %s-%d-%d %.3f %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName, domesticStudents[i].month, domesticStudents[i].day,
+                    domesticStudents[i].year, domesticStudents[i].GPA, domesticStudents[i].studentType);
+                printf("%s %s %s-%d-%d %.3f %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName, domesticStudents[i].month, domesticStudents[i].day,
+                    domesticStudents[i].year, domesticStudents[i].GPA, domesticStudents[i].studentType);
             }
             break;
         case 2:
             for(int i = 0; i < internationalCount; i++) {
-
-                if(internationalStudents[i].GPA > 3.9 && internationalStudents[i].TOEFL >= 70) {
-                    fprintf(outFile, "International Students with a GPA of above 3.9 and TOEFL above 70:\n%s %s %.3f %c %d\n",
-                        internationalStudents[i].firstName, internationalStudents[i].lastName,
-                        internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
-
-                }
+                    fprintf(outFile, "%s %s %s-%d-%d %.3f %c %d\n", internationalStudents[i].firstName, internationalStudents[i].lastName,
+                        internationalStudents[i].month, internationalStudents[i].day,
+                    internationalStudents[i].year, internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
             }
             break;
         case 3:
-            for(int i = 0; i < domesticCount; i++) {
-                if(domesticStudents[i].GPA > 3.9) {
-
-                    fprintf(outFile, "Domestic Students with a GPA of above 3.9:\n%s %s %.3f %c\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
-                        domesticStudents[i].GPA, domesticStudents[i].studentType);
-
+            int i = 0;
+            int j = 0;
+            for(i = 0; i < domesticCount; i++) {
+                while(j < internationalCount && compareMix(&internationalStudents[j], &domesticStudents[i]) < 0) {
+                        fprintf(outFile, "%s %s %s-%d-%d %.3f %c %d\n",
+                                        internationalStudents[j].firstName, internationalStudents[j].lastName,
+                                        internationalStudents[j].month, internationalStudents[j].day,
+                                        internationalStudents[j].year, internationalStudents[j].GPA,
+                                        internationalStudents[j].studentType, internationalStudents[j].TOEFL);
+                        j++;
                 }
+
+
+                fprintf(outFile, "%s %s %s-%d-%d %.3f %c\n",
+                            domesticStudents[i].firstName, domesticStudents[i].lastName,
+                            domesticStudents[i].month, domesticStudents[i].day,
+                            domesticStudents[i].year, domesticStudents[i].GPA,
+                            domesticStudents[i].studentType);
+
             }
-            for(int i = 0; i < internationalCount; i++) {
-                if(internationalStudents[i].GPA > 3.9 && internationalStudents[i].TOEFL >= 70) {
 
-                    fprintf(outFile, "International Students with a GPA of above 3.9 and TOEFL above 70:\n%s %s %.3f %c %d\n",
-                        internationalStudents[i].firstName, internationalStudents[i].lastName,
-                        internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL);
-
-                }
+            while(j < internationalCount) {
+                fprintf(outFile, "%s %s %s-%d-%d %.3f %c %d\n", internationalStudents[j].firstName, internationalStudents[j].lastName,
+                        internationalStudents[j].month, internationalStudents[j].day,
+                    internationalStudents[j].year, internationalStudents[j].GPA, internationalStudents[j].studentType, internationalStudents[j].TOEFL);
+                j++;
             }
             break;
-        case 4:
-
-        if(sort == 1) {
-            int y;
-            domesticStudent dKey;
-
-            //insertion sort for the domestic students
-            for(int x = 1; x < domesticCount; x++) {
-                dKey = domesticStudents[x];
-                y = x - 1;
-
-                while(y >= 0 && domesticStudents[y].GPA > dKey.GPA) {
-                    domesticStudents[y + 1] = domesticStudents[y];
-                    y = y - 1;
-                }
-
-                domesticStudents[y + 1] = dKey;
-            }
-
-            int p;
-            internationalStudent iKey;
-
-            //insertion sort for the international students
-            for(int x = 1; x < internationalCount; x++) {
-                iKey = internationalStudents[x];
-                p = x - 1;
-
-                while(p >= 0 && internationalStudents[p].GPA > iKey.GPA) {
-                    internationalStudents[p + 1] = internationalStudents[p];
-                    p = p - 1;
-                }
-
-                internationalStudents[p + 1] = iKey;
-            }
-
-            fprintf(outFile, "Domestic Students GPA in descending order:\n");
-
-            for(int i = domesticCount - 1; i >= 0; i--) {
-
-                fprintf(outFile, "%s %s %.3f %c %s %d %d\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
-                    domesticStudents[i].GPA, domesticStudents[i].studentType, domesticStudents[i].month,
-                    domesticStudents[i].day, domesticStudents[i].year);
-
-            }
-
-            fprintf(outFile, "International Students GPA in descending order:\n");
-
-            for(int i = internationalCount - 1; i >= 0; i--) {
-
-                fprintf(outFile, "%s %s %.3f %c %d %s %d %d\n", internationalStudents[i].firstName, internationalStudents[i].lastName,
-                    internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL,
-                    internationalStudents[i].month, internationalStudents[i].day, internationalStudents[i].year);
-
-            }
-
-        } else if (sort == 0) {
-
-            fprintf(outFile, "Domestic Students GPA:\n");
-
-            for(int i = 0; i < domesticCount; i++) {
-
-                fprintf(outFile, "%s %s %.3f %c %s %d %d\n", domesticStudents[i].firstName, domesticStudents[i].lastName,
-                    domesticStudents[i].GPA, domesticStudents[i].studentType, domesticStudents[i].month,
-                    domesticStudents[i].day, domesticStudents[i].year);
-            }
-
-            fprintf(outFile, "International Students GPA:\n");
-
-            for(int i = 0; i < domesticCount; i++) {
-
-                fprintf(outFile, "%s %s %.3f %c %d %s %d %d\n", internationalStudents[i].firstName, internationalStudents[i].lastName,
-                    internationalStudents[i].GPA, internationalStudents[i].studentType, internationalStudents[i].TOEFL,
-                    internationalStudents[i].month, internationalStudents[i].day, internationalStudents[i].year);
-
-            }
-        } else {
-            fprintf(outFile, "Error: invalid sort choice");
-            exit(1);
-        }
-        break;
-
         default:
             fprintf(outFile, "Error: invalid choice");
             exit(1);

@@ -1,14 +1,14 @@
 package bcit;
 
-import bcit.WordGame.World;
+import bcit.WordGame.WordGame;
+
 
 public class Main {
     public static void main(String[] args) {
 
-        World wor = new World();
+        WordGame wordGame = new WordGame();
 
-
-        wor.playGame();
+        wordGame.playGame();
 
 
     }

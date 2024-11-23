@@ -1,0 +1,3 @@
+E:/CST HOMEWORK/MAIN_PC_HW/quiz3/cmake-build-debug/CMakeFiles/quiz3.dir
+E:/CST HOMEWORK/MAIN_PC_HW/quiz3/cmake-build-debug/CMakeFiles/edit_cache.dir
+E:/CST HOMEWORK/MAIN_PC_HW/quiz3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
