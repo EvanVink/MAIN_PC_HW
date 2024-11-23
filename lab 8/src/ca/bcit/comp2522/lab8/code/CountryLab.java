@@ -16,8 +16,8 @@ import java.util.stream.Stream;
 /**
  *  CountryLab is for practicing how to use NIO for file operations, "Stream" operations with terminal operations
  *  "filter", "map", "reduce".
- *      longerThanTen() Writing country names longer than 10 characters into data.txt.
- *      shorterThanFive() Writing country names shorter than 5 characters into data.txt.
+ *      longerThanTen() Writing country names longer than MAX_CHAR_LENGTH characters into data.txt.
+ *      shorterThanFive() Writing country names shorter than SHORT_CHAR_LENGTH characters into data.txt.
  *      startsWithA() Writing country names starting with "A" into data.txt.
  *      endWIthLand() Writing country names ending with "land" into data.txt.
  *      containUnited() Writing country names containing "United" into data.txt.
@@ -30,8 +30,8 @@ import java.util.stream.Stream;
  *      moreThanOneWord() Writing all country names with more than one word into data.txt.
  *      mapCountriesName() Writing Map each country name to its character count into data.txt.
  *      startWithZ() Writing "true" if any country name starts with "Z"; otherwise, "false" into data.txt.
- *      longerThanThreeChar() Writing "true" if all country names are longer than 3 characters; otherwise, "false" into
- *                            data.txt.
+ *      longerThanThreeChar() Writing "true" if all country names are longer than CHAR_MIN_LENGTH characters; otherwise,
+ *      "false" into data.txt.
  *
  * @author Evan Vink
  * @author Yujin Jeong
@@ -39,16 +39,27 @@ import java.util.stream.Stream;
  */
 public class CountryLab {
 
-    final Path countries = Paths.get("src","ca","bcit","comp2522","lab8", "code", "week8countries.txt");
-    final Path dirPath = Paths.get("ca","bcit","comp2522","lab8", "matches");
-    final Path dataFile = dirPath.resolve("data.txt");
-    List<String> countriesList;
+    private static final int SHORT_CHAR_LENGTH  = 5;
+    private static final int MAX_CHAR_LENGTH    = 10;
+    private static final int CHAR_MIN_LENGTH    = 3;
+    private static final int FIRST_CHARACTER     = 0;
+    private static final int SECOND_CHARACTER    = 1;
+
+    private final Path          countries;
+    private final Path          dirPath;
+    private final Path          dataFile;
+    private final List<String>  countriesList;
 
     /**
      * Creating constructor
      * @throws IOException if fails to read files or directories
      */
     public CountryLab() throws IOException {
+
+        countries = Paths.get("src","ca","bcit","comp2522","lab8", "code", "week8countries.txt");
+        dirPath = Paths.get("ca","bcit","comp2522","lab8", "matches");
+        dataFile = dirPath.resolve("data.txt");
+
 
         if(Files.notExists(dirPath)){
             Files.createDirectories(dirPath);
@@ -57,58 +68,62 @@ public class CountryLab {
         countriesList = Files.readAllLines(countries);
     }
 
-
-
-
-    /*
-     * Writing country names longer than 10 characters into data.txt
+    /**
+     * Writes country names longer than MAX_CHAR_LENGTH characters to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
-    void longerThanTen() throws IOException {
+    void longerThanN(final int n) throws IOException {
         try {
             final List<String> countriesLongerThanTen;
 
             countriesLongerThanTen = countriesList.stream()
                     .filter(Objects::nonNull)
-                    .filter(country -> country.length() > 10)
+                    .filter(country -> country.length() > n)
                     .collect(ArrayList::new, List::add, List::addAll);
 
-            Files.writeString(dataFile, "Country names longer than 10 characters:\n",
+            Files.writeString(dataFile, "Country names longer than " + n + " characters:\n",
                     StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
             Files.write(dataFile, countriesLongerThanTen, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
         } catch(final IOException e) {
-            System.out.println("Error writing country names longer than 10 char" + e.getMessage());
+            System.out.println("Error writing country names longer than " + n + " char" + e.getMessage());
         }
     }
 
-    /*
-     * Writing country names shorter than 5 characters into data.txt
+    /**
+     * Writes country names shorter than SHORT_CHAR_LENGTH characters to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
-    void shorterThanFive() throws IOException {
+    void shorterThanN(final int n) throws IOException {
         try {
             final List<String> countriesShorterThanFive;
 
             countriesShorterThanFive = countriesList.stream()
                     .filter(Objects::nonNull)
-                    .filter(country -> country.length() < 5)
+                    .filter(country -> country.length() < n)
                     .collect(ArrayList::new, List::add, List::addAll);
 
-            countriesShorterThanFive.addFirst("\n===Countries name shorter than 5 char===");
+            countriesShorterThanFive.addFirst("\n===Countries name shorter than " + n + " char===");
 
             Files.write(dataFile, countriesShorterThanFive, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
         } catch(final IOException e) {
-            System.out.println("Error writing country names shorter than 5 char" + e.getMessage());
+            System.out.println("Error writing country names shorter than " + n + " char" +
+                    e.getMessage());
         }
     }
 
 
-    /*
-     *  Writing country names starting with "A" into data.txt
+    /**
+     * Writes country names starting with 'A' to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
     void startsWithA() throws IOException {
-        List<String> startA = countriesList.stream()
+        final List<String> startA = countriesList.stream()
                 .filter(country -> country != null)
                 .filter(country -> country.startsWith("A"))
                 .toList();
@@ -122,7 +137,7 @@ public class CountryLab {
             try {
                 Files.writeString(dataFile, country + System.lineSeparator(),
                         StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 System.out.println("Error writing country names that start with A" + e.getMessage());
             }
         });
@@ -131,8 +146,10 @@ public class CountryLab {
                 StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
-    /*
-     *  Writing country names ending with "land" into data.txt
+    /**
+     * Writes country names ending with "land" to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
     void endWIthLand() throws IOException {
         try {
@@ -152,8 +169,10 @@ public class CountryLab {
         }
     }
 
-    /*
-     *  Writing country names containing "United" into data.txt
+    /**
+     * Writes country names containing "United" to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
     void containUnited() throws IOException {
         try {
@@ -173,12 +192,14 @@ public class CountryLab {
         }
     }
 
-    /*
-     *  Writing all country names in alphabetical order into data.txt
+    /**
+     * Writes all country names in alphabetical order to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
     void alphaOrder() throws IOException {
 
-        List<String> Order = countriesList.stream()
+        final List<String> Order = countriesList.stream()
                 .filter(country -> country != null)
                 .sorted(Comparator.comparing(country -> country))
                 .toList();
@@ -193,7 +214,7 @@ public class CountryLab {
                 Files.writeString(dataFile, country + System.lineSeparator(),
                         StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 System.out.println("Error writing the unique first letters of all country names");
             }
         });
@@ -202,8 +223,10 @@ public class CountryLab {
                 StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
-    /*
-     *  Writing the unique first letters of all country names into data.txt
+    /**
+     * Writes unique first letters of all country names to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
     void uniqueFirstLetter() throws IOException {
         try{
@@ -211,7 +234,7 @@ public class CountryLab {
 
             uniqueFirstLetter = countriesList.stream()
                     .filter(Objects::nonNull)
-                    .map(unique -> unique.substring(0,1))
+                    .map(unique -> unique.substring(FIRST_CHARACTER,SECOND_CHARACTER))
                     .collect(ArrayList::new, List::add, List::addAll);
 
             uniqueFirstLetter.addFirst("\n===The unique first letters of all country names===");
@@ -223,8 +246,10 @@ public class CountryLab {
         }
     }
 
-    /*
-     *  Writing the total count of country names into data.txt
+    /**
+     * Writes the total count of country names to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
     void numberOfCountries() throws IOException {
         long total;
@@ -243,8 +268,10 @@ public class CountryLab {
                 StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
-    /*
-     *  Writing the longest country name into data.txt
+    /**
+     * Writes the longest country name to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
     void longestCountryName() throws IOException {
         try{
@@ -264,8 +291,10 @@ public class CountryLab {
         }
     }
 
-    /*
-     *  Writing the shortest country name into data.txt
+    /**
+     * Writes the shortest country name to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
     void shortestCountryName() throws IOException {
         try{
@@ -285,11 +314,12 @@ public class CountryLab {
         }
     }
 
-    /*
-     *  Writing all country names converted to uppercase into data.txt
+
+    /**
+     * Writes all country names in uppercase to "data.txt".
      */
     void namesInUpperCase(){
-        List<String> namesInUpper = countriesList.stream()
+        final List<String> namesInUpper = countriesList.stream()
                 .filter(country -> country != null)
                 .map(country -> country.toUpperCase())
                 .toList();
@@ -298,14 +328,16 @@ public class CountryLab {
             try{
                 Files.writeString(dataFile, country + System.lineSeparator(),
                         StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 System.out.println("Error writing the names in upper case" + e.getMessage());
             }
         });
     }
 
-    /*
-     *  Writing all country names with more than one word into data.txt
+    /**
+     * Writes country names with more than one word to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
     void moreThanOneWord() throws IOException {
         try{
@@ -325,8 +357,10 @@ public class CountryLab {
         }
     }
 
-    /*
-     *  Writing Map each country name to its character count into data.txt
+    /**
+     * Maps each country name to its character count and writes to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
     void mapCountriesName() throws IOException {
         try{
@@ -351,11 +385,13 @@ public class CountryLab {
         }
     }
 
-    /*
-     *  Writing "true" if any country name starts with "Z"; otherwise, "false" into data.txt
+    /**
+     * Writes "true" if any country name starts with 'Z', otherwise "false", to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
     void startWithZ() throws IOException {
-        Boolean startWithZ = countriesList.stream()
+        final Boolean startWithZ = countriesList.stream()
                 .filter(country -> country != null)
                 .anyMatch(country -> country.startsWith("Z"));
 
@@ -367,10 +403,13 @@ public class CountryLab {
 
     }
 
-    /*
-     *  Writing "true" if all country names are longer than 3 characters; otherwise, "false" into data.txt
+    /**
+     * Writes "true" if all country names are longer than CHAR_MIN_LENGTH characters,
+     * otherwise "false", to "data.txt".
+     *
+     * @throws IOException if there is an error writing to the file.
      */
-    void longerThanThreeChar() throws IOException {
+    void longerThanNChar(final int n) throws IOException {
         try{
             final boolean allLongerThanThree;
             final List<String> result2;
@@ -378,101 +417,60 @@ public class CountryLab {
             result2            = new ArrayList<>();
             allLongerThanThree = countriesList.stream()
                     .filter(Objects::nonNull)
-                    .allMatch(name -> name.length() > 3);
+                    .allMatch(name -> name.length() > n);
 
-            result2.addFirst("\n\n===\"true\" if all country names are longer than 3 characters. Else, \"false\"===");
+            result2.addFirst("\n\n===\"true\" if all country names are longer than " + n +
+                    " characters. Else, \"false\"===");
             result2.add(String.valueOf(allLongerThanThree));
 
             Files.write(dataFile, result2, StandardOpenOption.APPEND);
 
         } catch(final IOException e) {
-            System.out.println("Error writing true if all country names are longer than 3 characters. Else,false"
+            System.out.println("Error writing true if all country names are longer than " + CHAR_MIN_LENGTH +
+                    " characters. Else,false"
                     + e.getMessage());
         }
     }
 
-//    public static void main(Object o) {
-//        final CountryLab data;
-//
-//        try {
-//            data = new CountryLab();
-//
-//
-//            data.longerThanTen();
-//
-//            data.shorterThanFive();
-//
-//            data.startsWithA();
-//
-//            data.endWIthLand();
-//
-//            data.containUnited();
-//
-//            data.alphaOrder();
-//
-//            data.uniqueFirstLetter();
-//
-//            data.numberOfCountries();
-//
-//            data.longestCountryName();
-//
-//            data.shortestCountryName();
-//
-//            data.namesInUpperCase();
-//
-//            data.moreThanOneWord();
-//
-//            data.mapCountriesName();
-//
-//            data.startWithZ();
-//
-//            data.longerThanThreeChar();
-//
-//        } catch (IOException e) {
-//            System.out.println("error printing the method" + e.getMessage());
-//        }
-//    }
+    public static void main(final String[] args) {
 
-//    public static void main(final String[] args) {
-//
-//        final CountryLab data;
-//
-//        try {
-//            data = new CountryLab();
-//
-//
-//            data.longerThanTen();
-//
-//            data.shorterThanFive();
-//
-//            data.startsWithA();
-//
-//            data.endWIthLand();
-//
-//            data.containUnited();
-//
-//            data.alphaOrder();
-//
-//            data.uniqueFirstLetter();
-//
-//            data.numberOfCountries();
-//
-//            data.longestCountryName();
-//
-//            data.shortestCountryName();
-//
-//            data.namesInUpperCase();
-//
-//            data.moreThanOneWord();
-//
-//            data.mapCountriesName();
-//
-//            data.startWithZ();
-//
-//            data.longerThanThreeChar();
-//
-//        } catch (IOException e) {
-//            System.out.println("error printing the method" + e.getMessage());
-//        }
-//    }
+        final CountryLab data;
+
+        try {
+            data = new CountryLab();
+
+            data.longerThanN(MAX_CHAR_LENGTH);
+
+            data.shorterThanN(SHORT_CHAR_LENGTH);
+
+            data.startsWithA();
+
+            data.endWIthLand();
+
+            data.containUnited();
+
+            data.alphaOrder();
+
+            data.uniqueFirstLetter();
+
+            data.numberOfCountries();
+
+            data.longestCountryName();
+
+            data.shortestCountryName();
+
+            data.namesInUpperCase();
+
+            data.moreThanOneWord();
+
+            data.mapCountriesName();
+
+            data.startWithZ();
+
+            data.longerThanNChar(CHAR_MIN_LENGTH);
+
+        } catch (IOException e) {
+            System.out.println("error printing the method" + e.getMessage());
+        }
+    }
 }
