@@ -1,3 +1,3 @@
-C:/Users/socce/Desktop/MAINPCHW/MAIN_PC_HW/lab8/cmake-build-debug/CMakeFiles/lab8.dir
-C:/Users/socce/Desktop/MAINPCHW/MAIN_PC_HW/lab8/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/socce/Desktop/MAINPCHW/MAIN_PC_HW/lab8/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+E:/CST HOMEWORK/MAIN_PC_HW/lab8/cmake-build-debug/CMakeFiles/lab8.dir
+E:/CST HOMEWORK/MAIN_PC_HW/lab8/cmake-build-debug/CMakeFiles/edit_cache.dir
+E:/CST HOMEWORK/MAIN_PC_HW/lab8/cmake-build-debug/CMakeFiles/rebuild_cache.dir

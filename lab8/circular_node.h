@@ -16,6 +16,8 @@ struct Node* createNode(const char* signal, int duration);
 void insertAtEnd(struct Node** head, const char* signal, int duration);
 void deleteNode(struct Node** head, const char* signal);
 void displayList(struct Node* head);
+void modifySignalDuration(struct Node* head, const char* signal, int duration);
+void cycleLights(struct Node* head);
 
 
 

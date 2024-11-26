@@ -11,6 +11,9 @@ public class WordGame{
     private Score scores;
 
 
+    private List<Float> allScores;
+
+
     private final World world;
 
     private float highestScore;
@@ -31,8 +34,6 @@ public class WordGame{
 //    abstract void playGame();
 
     public void playGame(){
-        System.out.println(oldHighestScoreSmallDate);
-        System.out.println(oldHighestScoreBigDate);
         Random randGame;
         Scanner playScanner;
         String playAgain;
@@ -67,6 +68,7 @@ public class WordGame{
         System.out.println("Would you like to play again? (Y/N)");
         playAgain = playScanner.next();
 
+
         while(!playAgain.equalsIgnoreCase("Y") && !playAgain.equalsIgnoreCase("N")){
             System.out.println("Error, Wrong character, try again: \n");
             playAgain = playScanner.next();
@@ -75,6 +77,9 @@ public class WordGame{
         if(playAgain.equalsIgnoreCase("Y")){
             playGame();
         } else if(playAgain.equalsIgnoreCase("N")){
+
+
+
 
             if(scores.getScoreAverage() > getHighScore()){
                 oldHighestScore = allScores.getFirst();
@@ -262,7 +267,7 @@ public void askQuestionFact(){
 
     public float getHighScore(){
 
-
+//treat each score as an object and just get the time played when found score.getScore()
         try {
             File highScoreFile = new File("WordGame/Score.txt");
             Scanner txtScanner = new Scanner(highScoreFile);
@@ -296,7 +301,7 @@ public void askQuestionFact(){
 
             Collections.sort(allScores);
             Collections.reverse(allScores);
-            System.out.println(allScores);
+
             return allScores.getFirst();
 
         } catch (FileNotFoundException e) {

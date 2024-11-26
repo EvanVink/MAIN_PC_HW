@@ -4,9 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <windows.h>
 #include "circular_node.h"
 
-
+//function to create a new node
 struct Node* createNode(const char* signal, int duration) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     strcpy(newNode->signal, signal);
@@ -15,6 +16,8 @@ struct Node* createNode(const char* signal, int duration) {
     return newNode;
 }
 
+
+//function to insert a node at the end
 void insertAtEnd(struct Node** head, const char* signal, int duration) {
     struct Node* newNode = createNode(signal, duration);
     if(*head == NULL) {
@@ -31,7 +34,7 @@ void insertAtEnd(struct Node** head, const char* signal, int duration) {
 
 }
 
-
+//function to delete a node
 void deleteNode(struct Node** head, const char* signal) {
     if(*head == NULL) {
         return;
@@ -71,15 +74,20 @@ void deleteNode(struct Node** head, const char* signal) {
 
 }
 
+//function to modify a signals duration
+void modifySignalDuration(struct Node* head, const char* signal, const int duration) {
 
-void modifySignalDuration(struct Node* head, const char* signal) {
-
-
-
+     while(head != NULL) {
+         if(strcmp(head->signal, signal) == 0) {
+             head->duration = duration;
+             return;
+         }
+         head = head->next;
+     }
 
 }
 
-
+//function to display all the signals
 void displayList(struct Node* head) {
     if(head == NULL) {
         return;
@@ -95,6 +103,23 @@ void displayList(struct Node* head) {
     printf("%s (head)\n", head->signal);
 }
 
+//function to cycle the signals based on their duration
+void cycleLights(struct Node* head) {
+    if(head == NULL) {
+        return;
+    }
+
+    struct Node* temp = head;
+
+    do {
+        printf("%s (%d seconds) ->", temp->signal, temp->duration);
+        fflush(stdout);
+        Sleep(temp->duration * 1000);
+        temp = temp->next;
+    } while(temp != head);
+
+    printf("%s (head)\n", head->signal);
+}
 
 
 

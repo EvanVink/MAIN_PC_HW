@@ -9,7 +9,6 @@ public class World{
 
     HashMap<String, Country> world;
 
-    private List<Float> allScores;
 
 //    private float highestScore;
 //    private float oldHighestScore;
@@ -64,22 +63,12 @@ public class World{
 
     }
 
-    public List<Float> getAllScores(){
-        return allScores;
-    }
-
-    public void setAllScores(List<Float> allScores) {
-        this.allScores = allScores;
-    }
-
 
     public HashMap<String, Country> getWorld(){
         return world;
     }
 
-    public Score getScore(){
-        return scores;
-    }
+
 
 //    @Override
 //    public void playGame(){
