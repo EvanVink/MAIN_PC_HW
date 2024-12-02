@@ -1,6 +1,8 @@
 package bcit.WordGame;
 
 /**
+ * The Country class represents a country with its name, capital city, and a set of facts.
+ * It stores the details of a country, including the country's name, capital city, and an array of facts.
  * @author Evan Vink
  * @version 1.0
  */

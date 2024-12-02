@@ -1,0 +1,41 @@
+lesson 1:
+static method in ColorMatcher
+overloading methods in MakeColors class
+
+lesson 2:
+have substitution in ColorMatcher class
+
+lesson 3:
+have abstract class and method in shape factory
+
+lesson 4:
+interface in my game as Colors
+
+lesson 5:
+iterate through all the scores in my game ColorMatcher class
+
+
+lesson 6:
+add a nested class called Score in ColorMatcher class
+
+lesson 7:
+lambda expressions in ColorMatcher class
+
+lesson 8:
+added scanner to choose circles or squares as well as the input for the main menu
+add streams to the scores list to get the highest score in ColorMatcher and added them
+to get the boundaries to place a number in the number game
+
+lesson 9:
+included gui in my game and the number game
+
+lesson 10:
+make a unit test to test the Euclidean Formula to get the same number
+
+lesson 11:
+implemented a factory design patter for making shapes
+
+lesson 12:
+added a thread to make a count-down until the game ends for my game
+
+

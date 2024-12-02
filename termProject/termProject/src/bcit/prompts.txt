@@ -1,0 +1,86 @@
+At first I prompted chat gpt this:
+give me some original simple fun games they can be a spin off of another simple game but different
+
+it gave me:
+1. Tile Tumble
+Inspired by: Tetris
+Gameplay: Instead of pieces falling, you control a single tile moving along a grid. Your goal is to destroy rows of color-coded blocks by hitting them with your tile. Special blocks can change your tile’s properties (e.g., sticky, fast, explosive). You lose if the screen fills up with blocks.
+Twist: Introduce a "paint" mechanic where your tile changes the color of blocks it touches, affecting the rows cleared.
+2. Chain Reaction Challenge
+Inspired by: Minesweeper
+Gameplay: Instead of avoiding mines, your goal is to set off chain reactions by placing explosives on a grid. You need to strategically detonate tiles to clear as many as possible in one move.
+Twist: Some tiles regenerate after explosions unless you hit them twice in a single chain reaction.
+3. Maze Rebuilder
+Inspired by: Pac-Man
+Gameplay: You control a character tasked with rebuilding a collapsing maze. Instead of avoiding ghosts, you must outsmart them by building walls that trap or redirect them. As the maze deteriorates, you need to plan your moves to survive and repair key pathways.
+Twist: Collect power-ups that let you manipulate the ghosts' behavior, such as reversing their movement.
+4. Space Hopper Blitz
+Inspired by: Flappy Bird
+Gameplay: Guide a bouncing astronaut through an asteroid field. Instead of tapping to keep the astronaut airborne, you tap to make them bounce higher or lower on a gravitational wave.
+Twist: You can momentarily stop time to reposition asteroids or change their trajectory to create a path.
+5. Memory Swap
+Inspired by: Memory/Matching Card Games
+Gameplay: Match cards, but each card you flip also affects other cards. For example, flipping one card may swap two others, shuffle a row, or change card symbols. Your memory must adapt to these shifting dynamics.
+Twist: Introduce a "joker" card that gives you a free peek but moves cards around afterward.
+6. Shape Shifter Showdown
+Inspired by: Rock-Paper-Scissors
+Gameplay: You play as a shape-shifting character battling enemies. Each shape (rock, paper, scissors) has unique abilities, and you must switch forms to attack or defend against the correct enemy.
+Twist: Some enemies are hybrids, requiring two shapes to defeat, and you can create combos by shifting mid-battle.
+7. Reverse Snake
+Inspired by: Snake
+Gameplay: Instead of growing, your snake starts long and shrinks as you eat "eraser" dots. The challenge is to avoid running into yourself or disappearing entirely before you reach the finish line.
+Twist: Eating some dots restores segments, but eating too many locks your movement temporarily.
+8. Bounce Battle
+Inspired by: Pong
+Gameplay: A two-player game where the paddles can curve the trajectory of the ball. Players can earn "spin points" to add unpredictable effects like teleportation, splitting the ball, or temporarily freezing the opponent’s paddle.
+Twist: Occasionally, obstacles appear on the field, changing the physics of the ball.
+9. Color Craze Dash
+Inspired by: Simon Says
+Gameplay: You control a character that can change colors. Obstacles only let specific colors through, so you must change to the correct color to pass. If you mismatch, the character is knocked back or slowed down.
+Twist: Combine colors (e.g., red + blue = purple) to pass multicolored obstacles.
+10. Time Thief
+Inspired by: Tag
+Gameplay: You control a time traveler in a maze, collecting time fragments while avoiding enemy "time guardians." Use time powers like pausing, rewinding, or speeding up time to outmaneuver your enemies.
+Twist: The maze layout shifts as you use time powers, creating new challenges or shortcuts.
+
+
+I felt that some of these were either too hard to make or not different enough from the original game and since i didnt find my idea from that prompt i asked chat gpt again
+
+give me original simple ideas that havent been done to be made in java
+
+it gave me more or less the same as before which was pretty annoying but i saw one different option that caught my eye
+
+4. Color Harmonizer
+Concept: You’re a painter balancing three primary colors (red, blue, yellow) to match target colors. Combine and distribute paint to fill patterns before time runs out.
+How to Implement:
+Use JavaFX Sliders to adjust color mixing (RGB values).
+Render shapes (Rectangle, Circle) and fill them with dynamic colors based on player input.
+Score based on accuracy and time taken to match target colors.
+Unique Twist: Add obstacles like "color fades" or limited paint.
+
+this was a great idea and i liked the idea so i decided to stick with it
+
+
+one annoying and frustrating part with chatgpt was it wasnt really helping me fix a problem i had with my thread and it kept giving me the wrong code that i fixed after that,
+
+i prompted:
+how can i hide the target color display 3 seconds after loading the stage
+
+
+it gave me:
+
+public class HideThread extends Thread {
+    @Override
+    public void run() {
+        try {
+            sleep(3000); // Sleep for 3 seconds
+            Platform.runLater(() -> {
+                // This code will be executed on the JavaFX Application Thread
+                targetColorDisplay.setVisible(false);
+            });
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+which didnt work at all and it kept giving me answers similar to this which was very annoying and frustrating
