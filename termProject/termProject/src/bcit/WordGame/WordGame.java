@@ -1,59 +1,75 @@
 package bcit.WordGame;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * The WordGame class represents a quiz game that involves asking questions related to countries, capitals, and facts.
+ * It tracks scores based on user responses and allows players to play multiple rounds.
+ * The game interacts with a "World" object that provides country and capital information, as well as facts about countries.
+ * @author Evan Vink
+ * @version 1.0
+ */
 public class WordGame{
 
-    private Score scores;
+    private static final int SCORE_FIRST_POSITION   = 0;
+    private static final int SCORE_SECOND_POSITION  = 1;
+    private static final int SCORE_THIRD_POSITION   = 2;
+    private static final int SCORE_FORTH_POSITION   = 3;
+    private static final int AMOUNT_OF_FACTS        = 3;
+    private static final int SCORE_INCREMENT        = 1;
+    private static final int AMOUNT_OF_QUESTIONS    = 3;
+    private static final int QUESTION_ONE           = 0;
+    private static final int QUESTION_TWO           = 1;
+    private static final int QUESTION_THREE         = 2;
 
 
-    private List<Float> allScores;
 
+    private Score       scores;
 
     private final World world;
 
-    private float highestScore;
-    private float oldHighestScore;
-    private String oldHighestScoreBigDate;
-    private String oldHighestScoreSmallDate;
+    private final int[] score = {SCORE_FIRST_POSITION, SCORE_SECOND_POSITION, SCORE_THIRD_POSITION, SCORE_FORTH_POSITION};
 
-    private final int[] score = {0, 0, 0, 0};
-
-
-
+    /**
+     * Constructor for the WordGame class.
+     * Initializes a new World object.
+     */
     public WordGame(){
         world = new World();
     }
 
-
-
-//    abstract void playGame();
-
-    public void playGame(){
-        Random randGame;
-        Scanner playScanner;
-        String playAgain;
-        randGame = new Random();
+    /**
+     * Starts and runs the game, asking a set of random questions and tracking the player's score.
+     * The game continues to ask questions until the user chooses not to play again.
+     *
+     * @throws IOException if there's an issue with file I/O during score saving/loading
+     */
+    public void playGame() throws IOException {
+        Random      randGame;
+        Scanner     playScanner;
+        String      playAgain;
+        List<Score> allScores;
+        Score       highScore;
+        randGame    = new Random();
         playScanner = new Scanner(System.in);
-        score[0] = score[0] + 1;
-        allScores = new ArrayList<>();
+        allScores   = Score.readScoresFromFile( "Score.txt");
+        score[SCORE_FIRST_POSITION] = score[SCORE_FIRST_POSITION] + SCORE_INCREMENT;
 
 
-        for(int i = 0; i < 3; i++){
+
+        for(int i = 0; i < AMOUNT_OF_QUESTIONS; i++){
             int randomGameNum;
-            randomGameNum = randGame.nextInt(3);
+            randomGameNum = randGame.nextInt(AMOUNT_OF_QUESTIONS);
             switch(randomGameNum){
-                case 0:
+                case QUESTION_ONE:
                     askQuestionCapital();
                     break;
-                case 1:
+                case QUESTION_TWO:
                     askQuestionCountry();
                     break;
-                case 2:
+                case QUESTION_THREE:
                     askQuestionFact();
                     break;
                 default:
@@ -63,7 +79,7 @@ public class WordGame{
 
 
 
-        scores = new Score(score[0], score[1], score[2], score[3]);
+        scores = new Score(LocalDateTime.now(), score[SCORE_FIRST_POSITION], score[SCORE_SECOND_POSITION], score[SCORE_THIRD_POSITION], score[SCORE_FORTH_POSITION]);
 
         System.out.println("Would you like to play again? (Y/N)");
         playAgain = playScanner.next();
@@ -78,41 +94,38 @@ public class WordGame{
             playGame();
         } else if(playAgain.equalsIgnoreCase("N")){
 
-
-
-
-            if(scores.getScoreAverage() > getHighScore()){
-                oldHighestScore = allScores.getFirst();
-                highestScore = scores.getScoreAverage();
-                String format = String.format("CONGRATULATIONS! You are the " +
-                                "new high score with an average of %.2f points per game; " +
-                                "the previous record was %.2f points per game on " +
-                                "%s at %s", highestScore, oldHighestScore, oldHighestScoreBigDate,
-                        oldHighestScoreSmallDate);
-                System.out.println(format);
-            } else {
-                System.out.println("NO HIGHSCORE");
-            }
-
             System.out.println("Thanks for playing!\nBye!");
-            try {
-                File scoreFile = new File("WordGame/Score.txt");
-                FileWriter fileWriter = new FileWriter(scoreFile, true);
-                fileWriter.write(scores.stringScore() + "\n");
-                fileWriter.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+
+            highScore = allScores.stream()
+                    .max(Comparator.comparingDouble(Score::getAverage))
+                    .orElse(null);
+
+            if(!allScores.isEmpty()){
+                if(highScore.getAverage() < scores.getAverage()){
+                    System.out.println("CONGRATULATIONS! You are the new high score" +
+                            " with an average of " + scores.getAverage() +
+                            " points per game; the previous record was " + highScore.getAverage() +
+                            " points per game on " + highScore.getDate() + " at " +
+                            highScore.getHMS());
+                } else {
+                    System.out.println();
+                }
+            } else {
+                System.out.println("CONGRATULATIONS! You are the new high score" +
+                        " with an average of " + scores.getAverage() +
+                        " points per game");
             }
+            Score.appendScoreToFile(scores, "Score.txt");
+
+
         }
 
     }
 
 
-
-//    abstract void askQuestionCapital();
-//
-//    abstract boolean verifyCapital(String question, String answer);
-
+    /**
+     * Asks a random question about a country's capital and checks the player's answer.
+     */
     public void askQuestionCapital(){
         Random randQuestion;
         Scanner scanAnswer;
@@ -138,31 +151,35 @@ public class WordGame{
             if(!verifyCapital(question, secondTry)){
                 System.out.println("INCORRECT\nThe Capital of " + question + " is: " +
                         world.getWorld().get(question).getCapitalCityName() + "\n");
-                score[3] = score[3] + 1;
+                score[SCORE_FORTH_POSITION] = score[SCORE_FORTH_POSITION] + SCORE_INCREMENT;
             } else {
                 System.out.println("CORRECT");
-                score[2] = score[2] + 1;
+                score[SCORE_THIRD_POSITION] = score[SCORE_THIRD_POSITION] + SCORE_INCREMENT;
             }
         } else {
             System.out.println("CORRECT");
-            score[1] = score[1] + 1;
+            score[SCORE_SECOND_POSITION] = score[SCORE_SECOND_POSITION] + SCORE_INCREMENT;
         }
     }
 
-
+    /**
+     * Verifies if the player's answer matches the correct capital for the given country.
+     *
+     * @param question The country name
+     * @param answer The player's answer for the capital
+     * @return true if the answer is correct, false otherwise
+     */
     public boolean verifyCapital(final String question, final String answer){
         return world.getWorld().get(question).getCapitalCityName().equalsIgnoreCase(answer);
     }
 
 
 
-//    abstract void askQuestionCountry();
-//
-//    abstract boolean verifyCountry(String question, String answer);
-//
-
+    /**
+     * Asks a random question about a capital's country and checks the player's answer.
+     */
     public void askQuestionCountry(){
-        Random randQuestion;
+        Random  randQuestion;
         Scanner scanAnswer;
 
         randQuestion = new Random();
@@ -187,18 +204,24 @@ public class WordGame{
             if(!verifyCountry(country, secondTry)){
                 System.out.println("INCORRECT\nThe Country with the Capital " + question + " is: " +
                         country + "\n");
-                score[3] = score[3] + 1;
+                score[SCORE_FORTH_POSITION] = score[SCORE_FORTH_POSITION] + SCORE_INCREMENT;
             } else {
                 System.out.println("CORRECT");
-                score[2] = score[2] + 1;
+                score[SCORE_THIRD_POSITION] = score[SCORE_THIRD_POSITION] + SCORE_INCREMENT;
             }
         } else {
             System.out.println("CORRECT");
-            score[1] = score[1] + 1;
+            score[SCORE_SECOND_POSITION] = score[SCORE_SECOND_POSITION] + SCORE_INCREMENT;
         }
     }
 
-
+    /**
+     * Verifies if the player's answer matches the correct country for the given capital.
+     *
+     * @param question The capital city name
+     * @param answer The player's answer for the country
+     * @return true if the answer is correct, false otherwise
+     */
     public boolean verifyCountry(final String question, final String answer){
         return world.getWorld().get(question).getName().equalsIgnoreCase(answer);
     }
@@ -206,52 +229,58 @@ public class WordGame{
 
 
 
-//    abstract void askQuestionFact();
-//
-//    abstract boolean verifyFact(String question, String answer);
-public void askQuestionFact(){
-    Random randQuestion;
-    Random factRand;
-    Scanner scanAnswer;
+    /**
+     * Asks a random fact-based question about a country and checks the player's answer.
+     */
+    public void askQuestionFact(){
+        Random  randQuestion;
+        Random  factRand;
+        Scanner scanAnswer;
 
-    randQuestion = new Random();
-    factRand = new Random();
-    scanAnswer = new Scanner(System.in);
-
-
-    final String question;
-    final int factIndex;
-    final String country;
-    final String answer;
-    final String secondTry;
-
-    country = (String) world.getWorld().keySet().toArray()[randQuestion.nextInt(world.getWorld().size())];
-    factIndex = factRand.nextInt(3);
-    question = world.getWorld().get(country).getFacts()[factIndex];
+        randQuestion    = new Random();
+        factRand        = new Random();
+        scanAnswer      = new Scanner(System.in);
 
 
-    System.out.println("Guess this Country from this fact: \n" + question);
+        final String    question;
+        final int       factIndex;
+        final String    country;
+        final String    answer;
+        final String    secondTry;
 
-    answer = scanAnswer.nextLine();
+        country = (String) world.getWorld().keySet().toArray()[randQuestion.nextInt(world.getWorld().size())];
+        factIndex = factRand.nextInt(AMOUNT_OF_FACTS);
+        question = world.getWorld().get(country).getFacts()[factIndex];
 
-    if(!verifyFact(country, answer)){
-        System.out.println("INCORRECT\nSecond Chance: ");
-        secondTry = scanAnswer.nextLine();
-        if(!verifyFact(country, secondTry)){
-            System.out.println("INCORRECT\nThe Country of the Fact " + question + " is: " +
-                    world.getWorld().get(country).getName() + "\n");
-            score[3] = score[3] + 1;
+
+        System.out.println("Guess this Country from this fact: \n" + question);
+
+        answer = scanAnswer.nextLine();
+
+        if(!verifyFact(country, answer)){
+            System.out.println("INCORRECT\nSecond Chance: ");
+            secondTry = scanAnswer.nextLine();
+            if(!verifyFact(country, secondTry)){
+                System.out.println("INCORRECT\nThe Country of the Fact " + question + " is: " +
+                        world.getWorld().get(country).getName() + "\n");
+                score[SCORE_FORTH_POSITION] = score[SCORE_FORTH_POSITION] + SCORE_INCREMENT;
+            } else {
+                System.out.println("CORRECT");
+                score[SCORE_THIRD_POSITION] = score[SCORE_THIRD_POSITION] + SCORE_INCREMENT;
+            }
         } else {
             System.out.println("CORRECT");
-            score[2] = score[2] + 1;
+            score[SCORE_SECOND_POSITION] = score[SCORE_SECOND_POSITION] + SCORE_INCREMENT;
         }
-    } else {
-        System.out.println("CORRECT");
-        score[1] = score[1] + 1;
     }
-}
 
-
+    /**
+     * Verifies if the player's answer matches the correct country based on a given fact.
+     *
+     * @param question The fact
+     * @param answer The player's answer for the country
+     * @return true if the answer is correct, false otherwise
+     */
     public boolean verifyFact(final String question, final String answer){
         return world.getWorld().get(question).getName().equalsIgnoreCase(answer);
     }
@@ -260,57 +289,6 @@ public void askQuestionFact(){
 
 
 
-
-
-
-
-
-    public float getHighScore(){
-
-//treat each score as an object and just get the time played when found score.getScore()
-        try {
-            File highScoreFile = new File("WordGame/Score.txt");
-            Scanner txtScanner = new Scanner(highScoreFile);
-
-            txtScanner.useDelimiter("(- Date and Time: |- Games Played: |- Correct First Attempts: |" +
-                    "- Correct Second Attempts: |- Incorrect Attempts: |- Total Score: |- Average Score: |" +
-                    "\\n)+");
-
-            while (txtScanner.hasNext()){
-
-                String value;
-                String time;
-                String bigTime;
-                String smallTime;
-
-                time = txtScanner.next();
-                bigTime = time.substring(0, 9);
-                smallTime = time.substring(11);
-                System.out.println(bigTime);
-                System.out.println(smallTime);
-
-                for(int i = 0; i < 5; i++){
-                    System.out.println(txtScanner.next());;
-                }
-
-                value = txtScanner.next().replaceAll("Points/Game", " ").trim();
-                allScores.add(Float.parseFloat(value));
-                txtScanner.nextLine();
-
-            }
-
-            Collections.sort(allScores);
-            Collections.reverse(allScores);
-
-            return allScores.getFirst();
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-
-
-    }
 
 
 
