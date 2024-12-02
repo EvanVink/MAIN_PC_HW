@@ -1,0 +1,3 @@
+C:/Users/socce/Desktop/MAINPCHW/MAIN_PC_HW/lab9/cmake-build-debug/CMakeFiles/lab9.dir
+C:/Users/socce/Desktop/MAINPCHW/MAIN_PC_HW/lab9/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/socce/Desktop/MAINPCHW/MAIN_PC_HW/lab9/cmake-build-debug/CMakeFiles/rebuild_cache.dir

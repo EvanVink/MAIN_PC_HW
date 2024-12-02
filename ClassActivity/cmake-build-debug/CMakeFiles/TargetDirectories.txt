@@ -1,0 +1,3 @@
+C:/Users/socce/Desktop/MAINPCHW/MAIN_PC_HW/ClassActivity/cmake-build-debug/CMakeFiles/ClassActivity.dir
+C:/Users/socce/Desktop/MAINPCHW/MAIN_PC_HW/ClassActivity/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/socce/Desktop/MAINPCHW/MAIN_PC_HW/ClassActivity/cmake-build-debug/CMakeFiles/rebuild_cache.dir

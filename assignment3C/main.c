@@ -12,7 +12,7 @@ struct Node {
 struct Node* createNode(const char* name) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     strcpy(newNode->name, name);
-    newNode->next = newNode;
+    newNode->next = NULL;
     return newNode;
 }
 
@@ -36,10 +36,10 @@ void insertAtBegining(struct Node** head, const char* name) {
         return;
     }
 
-    struct Node* temp = *head;
-    temp->next = newNode;
+    strcpy(newNode->name, name);
+    newNode->next = (*head);
+    (*head) = newNode;
 
-    newNode->next = *head;
 }
 //
 //
@@ -48,10 +48,36 @@ void insertAtBegining(struct Node** head, const char* name) {
 // }
 //
 //
-// void deleteNode(struct Node** head, const char* name) {
-//
-//
-// }
+void deleteNode(struct Node** head, const char* name) {
+
+    if(*head == NULL) {
+        return;
+    }
+
+    struct Node *temp = *head, *prev = NULL;
+
+    if(strcmp(temp->name, name) == 0 && temp->next == *head) {
+        *head == NULL;
+        free(temp);
+        return;
+    }
+
+    if(strcmp(temp->name, name) == 0) {
+        while(temp->next != *head) {
+            temp = temp->next;
+        }
+        temp->next = (*head)->next;
+        free(*head);
+        *head = temp->next;
+        return;
+    }
+
+
+
+
+
+
+}
 
 
 void displayList(struct Node* head) {
@@ -61,10 +87,10 @@ void displayList(struct Node* head) {
 
     struct Node* temp = head;
 
-    do {
-    printf("Patient's name is: %s\n", temp->name);
-    temp = temp->next;
-    } while (temp != head);
+    while(temp != NULL) {
+        printf("Patient's name is: %s\n", temp->name);
+        temp = temp->next;
+    }
 
     printf("%s (head)\n", head->name);
 }
